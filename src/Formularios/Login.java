@@ -271,7 +271,7 @@ public class Login extends javax.swing.JFrame {
                     this.dispose();
 
                 } else {
-                    JOptionPane.showMessageDialog(null, " Usuario y/o contraseña INCORRECTOS.... ");
+                    JOptionPane.showMessageDialog(null, " Usuario y/o contraseña INCORRECTOS... ");
                     jTextUsuario.setText(null);
                     jPasswordContraseña.setText(null);
                     
