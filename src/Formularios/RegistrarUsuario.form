@@ -60,7 +60,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTexApellidoM" alignment="0" min="-2" pref="191" max="-2" attributes="0"/>
+                              <Component id="jTextApellidoM" alignment="0" min="-2" pref="191" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="110" max="-2" attributes="0"/>
                       </Group>
@@ -134,7 +134,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jTextApellidoP" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
-                      <Component id="jTexApellidoM" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                      <Component id="jTextApellidoM" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -177,6 +177,9 @@
       </Layout>
       <SubComponents>
         <Component class="javax.swing.JTextField" name="jTextNombre">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextNombreKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
@@ -203,8 +206,15 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextApellidoP">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextApellidoPKeyTyped"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTexApellidoM">
+        <Component class="javax.swing.JTextField" name="jTextApellidoM">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextApellidoMActionPerformed"/>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextApellidoMKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
           <Properties>
@@ -236,6 +246,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextNameUsuario">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextNameUsuarioKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel9">
           <Properties>
@@ -246,6 +259,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextContrase&#xf1;a">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextContrase&#xf1;aKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButtonRegistrarUsuario">
           <Properties>

@@ -38,7 +38,7 @@ public class RegistrarUsuario extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jTextApellidoP = new javax.swing.JTextField();
-        jTexApellidoM = new javax.swing.JTextField();
+        jTextApellidoM = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jTexFechaN = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
@@ -58,6 +58,12 @@ public class RegistrarUsuario extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
+        jTextNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextNombreKeyTyped(evt);
+            }
+        });
+
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setText("Nombre");
 
@@ -66,6 +72,23 @@ public class RegistrarUsuario extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel5.setText("Apeliido Paterno");
+
+        jTextApellidoP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextApellidoPKeyTyped(evt);
+            }
+        });
+
+        jTextApellidoM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextApellidoMActionPerformed(evt);
+            }
+        });
+        jTextApellidoM.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextApellidoMKeyTyped(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel7.setText("Telefono");
@@ -82,8 +105,20 @@ public class RegistrarUsuario extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel8.setText("Usuario");
 
+        jTextNameUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextNameUsuarioKeyTyped(evt);
+            }
+        });
+
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel9.setText("Contraseña");
+
+        jTextContraseña.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextContraseñaKeyTyped(evt);
+            }
+        });
 
         jButtonRegistrarUsuario.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButtonRegistrarUsuario.setText("Registrar Usuario");
@@ -128,7 +163,7 @@ public class RegistrarUsuario extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
-                            .addComponent(jTexApellidoM, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextApellidoM, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(110, 110, 110))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,7 +217,7 @@ public class RegistrarUsuario extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextApellidoP, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTexApellidoM, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextApellidoM, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
@@ -275,7 +310,7 @@ public class RegistrarUsuario extends javax.swing.JFrame {
         apellidoP = jTextApellidoP.getText();
 
         String apellidoM;
-        apellidoM = jTexApellidoM.getText();
+        apellidoM = jTextApellidoM.getText();
 
        String telefono;
     telefono = jTexTel1.getText();
@@ -351,6 +386,81 @@ jTextNameUsuario.setText(null);
     }
     }//GEN-LAST:event_jTexTel1KeyTyped
 
+    private void jTextContraseñaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextContraseñaKeyTyped
+        // TODO add your handling code here:
+        
+      
+    if (jTextContraseña.getText().trim().length() == 8) {
+        evt.consume();
+    }
+        
+    }//GEN-LAST:event_jTextContraseñaKeyTyped
+
+    private void jTextNameUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextNameUsuarioKeyTyped
+        // TODO add your handling code here:
+        
+     
+    if (jTextNameUsuario.getText().trim().length() == 12) {
+        evt.consume();
+    }
+        
+    }//GEN-LAST:event_jTextNameUsuarioKeyTyped
+
+    private void jTextNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextNombreKeyTyped
+        // TODO add your handling code here:
+          int key = evt.getKeyChar();
+
+    boolean numeros = key >= 48 && key <= 57;
+        
+    if (numeros)
+    {
+        evt.consume();
+    }
+
+    if (jTextNombre.getText().trim().length() == 20) {
+        evt.consume();
+    }
+        
+    }//GEN-LAST:event_jTextNombreKeyTyped
+
+    private void jTextApellidoPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextApellidoPKeyTyped
+        // TODO add your handling code here:
+        
+          int key = evt.getKeyChar();
+
+    boolean numeros = key >= 48 && key <= 57;
+        
+    if (numeros)
+    {
+        evt.consume();
+    }
+
+    if (jTextApellidoP.getText().trim().length() == 20) {
+        evt.consume();
+    }
+    }//GEN-LAST:event_jTextApellidoPKeyTyped
+
+    private void jTextApellidoMKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextApellidoMKeyTyped
+        // TODO add your handling code here:
+        
+          int key = evt.getKeyChar();
+
+    boolean numeros = key >= 48 && key <= 57;
+        
+    if (numeros)
+    {
+        evt.consume();
+    }
+
+    if (jTextApellidoM.getText().trim().length() == 20) {
+        evt.consume();
+    }
+    }//GEN-LAST:event_jTextApellidoMKeyTyped
+
+    private void jTextApellidoMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextApellidoMActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextApellidoMActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -401,9 +511,9 @@ jTextNameUsuario.setText(null);
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTexApellidoM;
     private javax.swing.JTextField jTexFechaN;
     private javax.swing.JTextField jTexTel1;
+    private javax.swing.JTextField jTextApellidoM;
     private javax.swing.JTextField jTextApellidoP;
     private javax.swing.JTextField jTextContraseña;
     private javax.swing.JTextField jTextNameUsuario;

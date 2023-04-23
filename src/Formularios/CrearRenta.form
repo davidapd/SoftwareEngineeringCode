@@ -295,6 +295,9 @@
               <Font name="Tahoma" size="18" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextNombreKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextApellidoP">
           <Properties>
@@ -302,6 +305,9 @@
               <Font name="Tahoma" size="18" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextApellidoPKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextApellidoM">
           <Properties>
@@ -309,6 +315,9 @@
               <Font name="Tahoma" size="18" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextApellidoMKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
@@ -363,6 +372,9 @@
               <Font name="Tahoma" size="18" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextCalleKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel9">
           <Properties>
@@ -378,6 +390,9 @@
               <Font name="Tahoma" size="18" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextColoniaKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel10">
           <Properties>
@@ -395,6 +410,7 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextNumExtActionPerformed"/>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextNumExtKeyTyped"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel11">
@@ -411,6 +427,9 @@
               <Font name="Tahoma" size="18" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextCodigoPKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel12">
           <Properties>
@@ -426,6 +445,9 @@
               <Font name="Tahoma" size="18" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextReferenciaKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel14">
           <Properties>
@@ -441,6 +463,9 @@
               <Font name="Tahoma" size="18" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextCaracteristicaKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel15">
           <Properties>

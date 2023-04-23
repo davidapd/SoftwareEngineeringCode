@@ -105,10 +105,25 @@ public class CrearRenta extends javax.swing.JFrame {
         jLabel3.setText("Datos del Cliente");
 
         jTextNombre.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextNombreKeyTyped(evt);
+            }
+        });
 
         jTextApellidoP.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextApellidoP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextApellidoPKeyTyped(evt);
+            }
+        });
 
         jTextApellidoM.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextApellidoM.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextApellidoMKeyTyped(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setText("Nombre");
@@ -128,11 +143,21 @@ public class CrearRenta extends javax.swing.JFrame {
         jLabel8.setText("Calle");
 
         jTextCalle.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextCalle.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextCalleKeyTyped(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel9.setText("Colonia");
 
         jTextColonia.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextColonia.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextColoniaKeyTyped(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel10.setText("Numero Exterior");
@@ -143,21 +168,41 @@ public class CrearRenta extends javax.swing.JFrame {
                 jTextNumExtActionPerformed(evt);
             }
         });
+        jTextNumExt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextNumExtKeyTyped(evt);
+            }
+        });
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel11.setText("Codigo Postal");
 
         jTextCodigoP.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextCodigoP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextCodigoPKeyTyped(evt);
+            }
+        });
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel12.setText("Referencias");
 
         jTextReferencia.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextReferencia.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextReferenciaKeyTyped(evt);
+            }
+        });
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel14.setText("Caracteriticas del domicilio");
 
         jTextCaracteristica.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextCaracteristica.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextCaracteristicaKeyTyped(evt);
+            }
+        });
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel15.setText("Mobiliario");
@@ -478,6 +523,146 @@ public class CrearRenta extends javax.swing.JFrame {
               
              
     }//GEN-LAST:event_jTextTotalMouseClicked
+
+    private void jTextNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextNombreKeyTyped
+        // TODO add your handling code here:
+        
+          int key = evt.getKeyChar();
+
+    boolean numeros = key >= 48 && key <= 57;
+        
+    if (numeros)
+    {
+        evt.consume();
+    }
+
+    if (jTextNombre.getText().trim().length() == 20) {
+        evt.consume();
+    }
+    }//GEN-LAST:event_jTextNombreKeyTyped
+
+    private void jTextApellidoPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextApellidoPKeyTyped
+            // TODO add your handling code here:
+            
+              int key = evt.getKeyChar();
+
+    boolean numeros = key >= 48 && key <= 57;
+        
+    if (numeros)
+    {
+        evt.consume();
+    }
+
+    if (jTextApellidoP.getText().trim().length() == 16) {
+        evt.consume();
+    }
+
+    }//GEN-LAST:event_jTextApellidoPKeyTyped
+
+    private void jTextApellidoMKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextApellidoMKeyTyped
+        // TODO add your handling code here:
+          int key = evt.getKeyChar();
+
+    boolean numeros = key >= 48 && key <= 57;
+        
+    if (numeros)
+    {
+        evt.consume();
+    }
+
+    if (jTextApellidoM.getText().trim().length() == 16) {
+        evt.consume();
+    }
+        
+    }//GEN-LAST:event_jTextApellidoMKeyTyped
+
+    private void jTextCalleKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextCalleKeyTyped
+        // TODO add your handling code here:
+        
+  
+
+    if (jTextCalle.getText().trim().length() == 15) {
+        evt.consume();
+    }
+    }//GEN-LAST:event_jTextCalleKeyTyped
+
+    private void jTextNumExtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextNumExtKeyTyped
+        // TODO add your handling code here:
+        
+          int key = evt.getKeyChar();
+
+    boolean numeros = key >= 48 && key <= 57;
+        
+    if (!numeros)
+    {
+        evt.consume();
+    }
+
+    if (jTextNumExt.getText().trim().length() == 4) {
+        evt.consume();
+    }
+    }//GEN-LAST:event_jTextNumExtKeyTyped
+
+    private void jTextColoniaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextColoniaKeyTyped
+        // TODO add your handling code here:
+        
+ 
+
+    if (jTextColonia.getText().trim().length() == 15) {
+        evt.consume();
+    }
+    }//GEN-LAST:event_jTextColoniaKeyTyped
+
+    private void jTextCodigoPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextCodigoPKeyTyped
+        // TODO add your handling code here:
+        
+          int key = evt.getKeyChar();
+
+    boolean numeros = key >= 48 && key <= 57;
+        
+    if (!numeros)
+    {
+        evt.consume();
+    }
+
+    if (jTextCodigoP.getText().trim().length() == 5) {
+        evt.consume();
+    }
+    }//GEN-LAST:event_jTextCodigoPKeyTyped
+
+    private void jTextReferenciaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextReferenciaKeyTyped
+        // TODO add your handling code here:
+        
+          int key = evt.getKeyChar();
+
+    boolean numeros = key >= 48 && key <= 57;
+        
+    if (numeros)
+    {
+        evt.consume();
+    }
+
+    if (jTextReferencia.getText().trim().length() == 30) {
+        evt.consume();
+    }
+    }//GEN-LAST:event_jTextReferenciaKeyTyped
+
+    private void jTextCaracteristicaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextCaracteristicaKeyTyped
+        // TODO add your handling code here:
+        
+          int key = evt.getKeyChar();
+
+    boolean numeros = key >= 48 && key <= 57;
+        
+    if (numeros)
+    {
+        evt.consume();
+    }
+
+    if (jTextCaracteristica.getText().trim().length() == 30) {
+        evt.consume();
+    }
+    }//GEN-LAST:event_jTextCaracteristicaKeyTyped
 
     /**
      * @param args the command line arguments
