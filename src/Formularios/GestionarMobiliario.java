@@ -4,6 +4,14 @@
  */
 package Formularios;
 
+import BD.Conexion;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author omar0
@@ -16,6 +24,7 @@ public class GestionarMobiliario extends javax.swing.JFrame {
     public GestionarMobiliario() {
         initComponents();
     }
+    Conexion baseDatos = new Conexion().conectar();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -33,8 +42,8 @@ public class GestionarMobiliario extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        jTextsillas = new javax.swing.JTextField();
+        jTextmesas = new javax.swing.JTextField();
         jButtonGenerarMobiliario = new javax.swing.JToggleButton();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -95,9 +104,19 @@ public class GestionarMobiliario extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel6.setText("Total de mesas:");
 
-        jTextField1.setEditable(false);
+        jTextsillas.setEditable(false);
+        jTextsillas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextsillasActionPerformed(evt);
+            }
+        });
 
-        jTextField2.setEditable(false);
+        jTextmesas.setEditable(false);
+        jTextmesas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextmesasActionPerformed(evt);
+            }
+        });
 
         jButtonGenerarMobiliario.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButtonGenerarMobiliario.setText("Generar Mobiliario");
@@ -164,7 +183,7 @@ public class GestionarMobiliario extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(82, 82, 82)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextsillas, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel7))
@@ -175,7 +194,7 @@ public class GestionarMobiliario extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextmesas, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel8)))
                 .addGap(70, 70, 70))
             .addGroup(layout.createSequentialGroup()
@@ -221,8 +240,8 @@ public class GestionarMobiliario extends javax.swing.JFrame {
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextsillas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextmesas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonGenerarMobiliario)
                 .addGap(20, 20, 20)
@@ -260,12 +279,110 @@ public class GestionarMobiliario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonGenerarMobiliarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGenerarMobiliarioActionPerformed
-        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            int noSillas = 0;
+            int noMesas = 0;
+            ResultSet resultado = baseDatos.consultar("SELECT * FROM MOBILARIO_TABLA ");
+
+            if (resultado.next()) {
+                noSillas = resultado.getInt("mobilario_cantidad_sillas");
+                noMesas = resultado.getInt("mobilario_cantidad_mesas");
+
+                String sillas = noSillas + " ";
+                String mesas = noMesas + "";
+
+                jTextsillas.setText(sillas);
+                jTextmesas.setText(mesas);
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No hay mobiliario registrado", null, JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(GestionarMobiliario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
     }//GEN-LAST:event_jButtonGenerarMobiliarioActionPerformed
 
     private void jButtonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarActionPerformed
         // TODO add your handling code here:
+
+       
+// Constructor pasadole una semilla
+Random numAleatorio = new Random(100);
+
+// Numero entero entre 25 y 75
+int n = numAleatorio.nextInt(900-100+1) + 100;
+        String id= n+ "";
+        
+        char T='1';
+
+        int mesas = 0;
+        mesas = (int) jSpinnerMesaA.getValue();
+
+        int sillas = 0;
+        sillas = (int) jSpinnerSillaA.getValue();
+
+        if (sillas != 0 || mesas != 0) {
+
+            if (sillas ==0) {
+                     boolean sentencia;
+            sentencia = baseDatos.ejecutar("Insert into MOBILARIO_TABLA values(' " + id + " ', ' Null ', ' " + mesas + " ', '1', '1') ");
+
+            if (sentencia == true) {
+                JOptionPane.showMessageDialog(null, "Se registro correctamente");
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo registrar ");
+                      } 
+            }else if (mesas==0){
+                
+                     boolean sentencia;
+            sentencia = baseDatos.ejecutar("Insert into MOBILARIO_TABLA values(' " + id + " ', ' " + sillas + " ', ' Null ', '1', '1') ");
+
+            if (sentencia == true) {
+                JOptionPane.showMessageDialog(null, "Se registro correctamente");
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo registrar ");
+            }
+
+    }else{
+                
+            
+            
+                 boolean sentencia;
+            sentencia = baseDatos.ejecutar("Insert into MOBILARIO_TABLA values(' " + id + " ', ' " + sillas + " ', ' " + mesas + " ', '1', '1') ");
+
+            if (sentencia == true) {
+                JOptionPane.showMessageDialog(null, "Se registro correctamente");
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo registrar ");
+
+            }
+    } 
+            
+            
+            
+        
+
+
     }//GEN-LAST:event_jButtonAgregarActionPerformed
+ else {
+
+            JOptionPane.showMessageDialog(null, "Ingresa la cantidad de sillas o mesas a registrar");
+        }
+    }
+        
+    private void jTextsillasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextsillasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextsillasActionPerformed
+
+    private void jTextmesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextmesasActionPerformed
+         // TODO add your handling code here:
+    }//GEN-LAST:event_jTextmesasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -324,7 +441,7 @@ public class GestionarMobiliario extends javax.swing.JFrame {
     private javax.swing.JSpinner jSpinnerMesaA;
     private javax.swing.JSpinner jSpinnerSillaA;
     private javax.swing.JSpinner jSpinnerSillaB;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextmesas;
+    private javax.swing.JTextField jTextsillas;
     // End of variables declaration//GEN-END:variables
 }
