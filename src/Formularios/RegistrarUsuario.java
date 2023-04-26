@@ -7,6 +7,7 @@ package Formularios;
 
 import BD.Conexion;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 
 /**
@@ -40,7 +41,6 @@ public class RegistrarUsuario extends javax.swing.JFrame {
         jTextApellidoP = new javax.swing.JTextField();
         jTextApellidoM = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jTexFechaN = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jTextNameUsuario = new javax.swing.JTextField();
@@ -50,6 +50,7 @@ public class RegistrarUsuario extends javax.swing.JFrame {
         jButtonCancelar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jTexTel1 = new javax.swing.JTextField();
+        jDate = new com.toedter.calendar.JDateChooser();
         jPanel2 = new javax.swing.JPanel();
         ImageLogo = new javax.swing.JLabel();
         jLabelRegistrarUsuario = new javax.swing.JLabel();
@@ -92,12 +93,6 @@ public class RegistrarUsuario extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel7.setText("Telefono");
-
-        jTexFechaN.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTexFechaNActionPerformed(evt);
-            }
-        });
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel11.setText("Fececha de Nacimiento");
@@ -177,14 +172,16 @@ public class RegistrarUsuario extends javax.swing.JFrame {
                             .addComponent(jTextContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(162, 162, 162))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTexFechaN, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTextNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel7)
-                                    .addGap(121, 121, 121)
-                                    .addComponent(jLabel11))))
+                                    .addComponent(jTexTel1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(72, 72, 72)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -197,11 +194,6 @@ public class RegistrarUsuario extends javax.swing.JFrame {
                         .addGap(62, 62, 62)
                         .addComponent(jButtonCancelar)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(20, 20, 20)
-                    .addComponent(jTexTel1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(363, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -222,16 +214,17 @@ public class RegistrarUsuario extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(jLabel11))
-                .addGap(18, 18, 18)
-                .addComponent(jTexFechaN, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTexTel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextNameUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextNameUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel8))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
@@ -241,11 +234,6 @@ public class RegistrarUsuario extends javax.swing.JFrame {
                     .addComponent(jButtonRegistrarUsuario)
                     .addComponent(jButtonCancelar))
                 .addGap(30, 30, 30))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(176, 176, 176)
-                    .addComponent(jTexTel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(186, Short.MAX_VALUE)))
         );
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 204));
@@ -315,8 +303,12 @@ public class RegistrarUsuario extends javax.swing.JFrame {
        String telefono;
     telefono = jTexTel1.getText();
 
-        String fechNac;
-        fechNac = jTexFechaN.getText();
+        String fechNac="";
+         SimpleDateFormat Formato = new SimpleDateFormat("dd/MM/yy");   
+         if (jDate.getDate() !=null) {
+             fechNac= Formato.format(jDate.getDate());
+        }
+       
 
         String nombreUsuario;
         nombreUsuario = jTextNameUsuario.getText();
@@ -324,7 +316,7 @@ public class RegistrarUsuario extends javax.swing.JFrame {
         String contraseña;
         contraseña = jTextContraseña.getText();
 
-        if (nombre.isEmpty() || apellidoP.isEmpty() || apellidoM.isEmpty() || telefono.isEmpty() || fechNac.isEmpty() || nombreUsuario.isEmpty() || contraseña.isEmpty()) {
+        if (nombre.isEmpty() || apellidoP.isEmpty() || apellidoM.isEmpty() || telefono.isEmpty() || fechNac.isEmpty()  || nombreUsuario.isEmpty() || contraseña.isEmpty()) {
 
             JOptionPane.showMessageDialog(null, "Exixten campos vacios, todos los campos son obligatorios ");
 
@@ -359,10 +351,6 @@ jTextNameUsuario.setText(null);
         login.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
-
-    private void jTexFechaNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTexFechaNActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTexFechaNActionPerformed
 
     private void jTexTel1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTexTel1ActionPerformed
         // TODO add your handling code here:
@@ -500,6 +488,7 @@ jTextNameUsuario.setText(null);
     private javax.swing.JLabel ImageLogo;
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonRegistrarUsuario;
+    private com.toedter.calendar.JDateChooser jDate;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -511,7 +500,6 @@ jTextNameUsuario.setText(null);
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTexFechaN;
     private javax.swing.JTextField jTexTel1;
     private javax.swing.JTextField jTextApellidoM;
     private javax.swing.JTextField jTextApellidoP;

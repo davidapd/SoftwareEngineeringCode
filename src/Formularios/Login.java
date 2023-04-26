@@ -126,6 +126,11 @@ public class Login extends javax.swing.JFrame {
                 jTextUsuarioActionPerformed(evt);
             }
         });
+        jTextUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextUsuarioKeyTyped(evt);
+            }
+        });
 
         BtnIniciar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         BtnIniciar.setText("Iniciar");
@@ -149,6 +154,11 @@ public class Login extends javax.swing.JFrame {
         jPasswordContraseña.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jPasswordContraseñaActionPerformed(evt);
+            }
+        });
+        jPasswordContraseña.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jPasswordContraseñaKeyTyped(evt);
             }
         });
 
@@ -294,6 +304,22 @@ public class Login extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_jPasswordContraseñaActionPerformed
+
+    private void jTextUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextUsuarioKeyTyped
+        // TODO add your handling code here:
+        
+          if (jTextUsuario.getText().trim().length() == 12) {
+        evt.consume();
+    }
+    }//GEN-LAST:event_jTextUsuarioKeyTyped
+
+    private void jPasswordContraseñaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordContraseñaKeyTyped
+        // TODO add your handling code here:
+        
+        if (jPasswordContraseña.getText().trim().length() == 8) {
+        evt.consume();
+    }
+    }//GEN-LAST:event_jPasswordContraseñaKeyTyped
 
     /**
      * @param args the command line arguments

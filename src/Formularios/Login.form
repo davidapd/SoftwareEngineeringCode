@@ -227,6 +227,7 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextUsuarioActionPerformed"/>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextUsuarioKeyTyped"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="BtnIniciar">
@@ -262,6 +263,7 @@
         <Component class="javax.swing.JPasswordField" name="jPasswordContrase&#xf1;a">
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jPasswordContrase&#xf1;aActionPerformed"/>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jPasswordContrase&#xf1;aKeyTyped"/>
           </Events>
         </Component>
         <Component class="javax.swing.JSeparator" name="jSeparator1">

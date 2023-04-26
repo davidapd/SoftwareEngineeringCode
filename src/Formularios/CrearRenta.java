@@ -1,6 +1,7 @@
 package Formularios;
 
 import BD.Conexion;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 
 /*
@@ -44,7 +45,6 @@ public class CrearRenta extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextFechaR = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jTextCalle = new javax.swing.JTextField();
@@ -67,6 +67,7 @@ public class CrearRenta extends javax.swing.JFrame {
         jTextTotal = new javax.swing.JTextField();
         jButtonRegistrarRenta = new javax.swing.JButton();
         jButtonSalir = new javax.swing.JButton();
+        jDate = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -133,8 +134,6 @@ public class CrearRenta extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel6.setText("Materno");
-
-        jTextFechaR.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel7.setText("Fecha de Renta");
@@ -276,26 +275,26 @@ public class CrearRenta extends javax.swing.JFrame {
                                         .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jTextNombre))
                                     .addComponent(jLabel4))
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel7)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jTextFechaR, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(53, 53, 53))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addGap(72, 72, 72)
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jTextApellidoP, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel5))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jLabel11)
-                                            .addComponent(jTextApellidoM, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
-                                            .addComponent(jLabel6)
-                                            .addComponent(jLabel10)
-                                            .addComponent(jTextNumExt)
-                                            .addComponent(jTextCodigoP)))))
+                                        .addComponent(jLabel7)
+                                        .addGap(39, 39, 39)))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jDate, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jLabel11)
+                                        .addComponent(jTextApellidoM, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
+                                        .addComponent(jLabel6)
+                                        .addComponent(jLabel10)
+                                        .addComponent(jTextNumExt)
+                                        .addComponent(jTextCodigoP))))
                             .addComponent(jTextCaracteristica)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(44, 44, 44)
@@ -331,11 +330,12 @@ public class CrearRenta extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextFechaR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addGap(16, 16, 16)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3)
+                        .addComponent(jLabel7))
+                    .addComponent(jDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5)
@@ -444,8 +444,11 @@ public class CrearRenta extends javax.swing.JFrame {
          String codigoP;
          codigoP = jTextCodigoP.getText();
          
-        String fechaEntrega;
-        fechaEntrega = jTextFechaR.getText();
+        String fechaEntrega="";
+           SimpleDateFormat Formato = new SimpleDateFormat("dd/MM/yy");   
+         if (jDate.getDate() !=null) {
+             fechaEntrega= Formato.format(jDate.getDate());
+        }
 
         int mesas = 0;
         mesas = (int) jSpinnermesas.getValue();
@@ -703,6 +706,7 @@ public class CrearRenta extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonRegistrarRenta;
     private javax.swing.JButton jButtonSalir;
+    private com.toedter.calendar.JDateChooser jDate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -730,7 +734,6 @@ public class CrearRenta extends javax.swing.JFrame {
     private javax.swing.JTextField jTextCaracteristica;
     private javax.swing.JTextField jTextCodigoP;
     private javax.swing.JTextField jTextColonia;
-    private javax.swing.JTextField jTextFechaR;
     private javax.swing.JTextField jTextNombre;
     private javax.swing.JTextField jTextNumExt;
     private javax.swing.JTextField jTextReferencia;
