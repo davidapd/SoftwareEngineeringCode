@@ -75,9 +75,9 @@
                   <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jSpinnerSillaA" pref="41" max="32767" attributes="0"/>
+                  <Component id="jSpinnerSillaA" pref="64" max="32767" attributes="0"/>
                   <Component id="jSpinnerMesaA" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
@@ -85,10 +85,10 @@
                   <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jSpinnerSillaB" pref="48" max="32767" attributes="0"/>
-                  <Component id="jSpinneMesaB" max="32767" attributes="0"/>
+                  <Component id="jSpinnerMesaB" pref="63" max="32767" attributes="0"/>
+                  <Component id="jSpinnerSillaB" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
           </Group>
@@ -100,14 +100,17 @@
               <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
           </Group>
           <Group type="102" attributes="0">
-              <EmptySpace min="-2" pref="220" max="-2" attributes="0"/>
-              <Component id="jButtonGenerarMobiliario" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="220" max="-2" attributes="0"/>
+                      <Component id="jButtonGenerarMobiliario" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="282" max="-2" attributes="0"/>
+                      <Component id="jButtonSalir" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
               <EmptySpace pref="248" max="32767" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="jButtonSalir" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="272" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -142,7 +145,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jSpinneMesaB" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                          <Component id="jSpinnerMesaB" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jButtonBaja" min="-2" pref="22" max="-2" attributes="0"/>
@@ -161,9 +164,9 @@
                       <Component id="jButtonAgregar" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="7" max="32767" attributes="0"/>
+              <EmptySpace pref="14" max="32767" attributes="0"/>
               <Component id="jButtonSalir" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -244,17 +247,17 @@
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextsillasActionPerformed"/>
-      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="try {&#xa;            // TODO add your handling code here:&#xa;            int noSillas = 0;&#xa;           &#xa;            ResultSet resultado = baseDatos.consultar(&quot;SELECT * FROM MOBILARIO_TABLA &quot;);&#xa;&#xa;            if (resultado.next()) {&#xa;                noSillas = resultado.getInt(&quot;mobilario_cantidad_sillas&quot;);&#xa;              &#xa;&#xa;                String sillas = noSillas + &quot;&quot;;&#xa;              &#xa;&#xa;                jTextsillas.setText(sillas);&#xa;                &#xa;&#xa;            } else {&#xa;                   jTextsillas.setText(&quot;0&quot;);&#xa;            }&#xa;        } catch (SQLException ex) {&#xa;            Logger.getLogger(GestionarMobiliario.class.getName()).log(Level.SEVERE, null, ex);&#xa;        }"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextmesas">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextmesasActionPerformed"/>
-      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="try {&#xa;            // TODO add your handling code here:&#xa;      &#xa;            int noMesas = 0;&#xa;            ResultSet resultado = baseDatos.consultar(&quot;SELECT * FROM MOBILARIO_TABLA &quot;);&#xa;&#xa;            if (resultado.next()) {&#xa;              &#xa;                noMesas = resultado.getInt(&quot;mobilario_cantidad_mesas&quot;);&#xa;&#xa;              &#xa;                String mesas = noMesas + &quot;&quot;;&#xa;&#xa;               &#xa;                jTextmesas.setText(mesas);&#xa;&#xa;            } else {&#xa;                   jTextmesas.setText(&quot;0&quot;);&#xa;            }&#xa;        } catch (SQLException ex) {&#xa;            Logger.getLogger(GestionarMobiliario.class.getName()).log(Level.SEVERE, null, ex);&#xa;        }"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JToggleButton" name="jButtonGenerarMobiliario">
       <Properties>
@@ -298,9 +301,9 @@
         <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jSpinnerMesaA .setFont(new java.awt.Font(&quot;Tahoma&quot;, 0, 18)); // NOI18N&#xa;jSpinnerMesaA .setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));&#xa;jSpinnerMesaA .setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JSpinner" name="jSpinneMesaB">
+    <Component class="javax.swing.JSpinner" name="jSpinnerMesaB">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jSpinneMesaB.setFont(new java.awt.Font(&quot;Tahoma&quot;, 0, 18)); // NOI18N&#xa;jSpinneMesaB.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));&#xa;jSpinneMesaB.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jSpinnerMesaB.setFont(new java.awt.Font(&quot;Tahoma&quot;, 0, 18)); // NOI18N&#xa;jSpinnerMesaB.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));&#xa;jSpinnerMesaB.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JToggleButton" name="jButtonAgregar">
@@ -321,6 +324,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Baja"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonBajaActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel9">
       <Properties>
@@ -361,6 +367,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Salir"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSalirActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

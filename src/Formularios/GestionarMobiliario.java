@@ -50,7 +50,7 @@ public class GestionarMobiliario extends javax.swing.JFrame {
         jSpinnerSillaA = new javax.swing.JSpinner();
         jSpinnerSillaB = new javax.swing.JSpinner();
         jSpinnerMesaA = new javax.swing.JSpinner();
-        jSpinneMesaB = new javax.swing.JSpinner();
+        jSpinnerMesaB = new javax.swing.JSpinner();
         jButtonAgregar = new javax.swing.JToggleButton();
         jButtonBaja = new javax.swing.JToggleButton();
         jLabel9 = new javax.swing.JLabel();
@@ -105,18 +105,47 @@ public class GestionarMobiliario extends javax.swing.JFrame {
         jLabel6.setText("Total de mesas:");
 
         jTextsillas.setEditable(false);
-        jTextsillas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextsillasActionPerformed(evt);
+        try {
+            // TODO add your handling code here:
+            int noSillas = 0;
+
+            ResultSet resultado = baseDatos.consultar("SELECT * FROM MOBILARIO_TABLA ");
+
+            if (resultado.next()) {
+                noSillas = resultado.getInt("mobilario_cantidad_sillas");
+
+                String sillas = noSillas + "";
+
+                jTextsillas.setText(sillas);
+
+            } else {
+                jTextsillas.setText("0");
             }
-        });
+        } catch (SQLException ex) {
+            Logger.getLogger(GestionarMobiliario.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         jTextmesas.setEditable(false);
-        jTextmesas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextmesasActionPerformed(evt);
+        try {
+            // TODO add your handling code here:
+
+            int noMesas = 0;
+            ResultSet resultado = baseDatos.consultar("SELECT * FROM MOBILARIO_TABLA ");
+
+            if (resultado.next()) {
+
+                noMesas = resultado.getInt("mobilario_cantidad_mesas");
+
+                String mesas = noMesas + "";
+
+                jTextmesas.setText(mesas);
+
+            } else {
+                jTextmesas.setText("0");
             }
-        });
+        } catch (SQLException ex) {
+            Logger.getLogger(GestionarMobiliario.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         jButtonGenerarMobiliario.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButtonGenerarMobiliario.setText("Generar Mobiliario");
@@ -144,9 +173,9 @@ public class GestionarMobiliario extends javax.swing.JFrame {
         jSpinnerMesaA .setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
         jSpinnerMesaA .setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jSpinneMesaB.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jSpinneMesaB.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
-        jSpinneMesaB.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jSpinnerMesaB.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jSpinnerMesaB.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        jSpinnerMesaB.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jButtonAgregar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButtonAgregar.setText("Agregar");
@@ -158,6 +187,11 @@ public class GestionarMobiliario extends javax.swing.JFrame {
 
         jButtonBaja.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButtonBaja.setText("Baja");
+        jButtonBaja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBajaActionPerformed(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel9.setText("Sillas");
@@ -173,6 +207,11 @@ public class GestionarMobiliario extends javax.swing.JFrame {
 
         jButtonSalir.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButtonSalir.setText("Salir");
+        jButtonSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -202,18 +241,18 @@ public class GestionarMobiliario extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel11)
                     .addComponent(jLabel9))
-                .addGap(49, 49, 49)
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jSpinnerSillaA, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+                    .addComponent(jSpinnerSillaA, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
                     .addComponent(jSpinnerMesaA))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel12)
                     .addComponent(jLabel10))
-                .addGap(51, 51, 51)
+                .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jSpinnerSillaB, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
-                    .addComponent(jSpinneMesaB))
+                    .addComponent(jSpinnerMesaB, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+                    .addComponent(jSpinnerSillaB))
                 .addGap(82, 82, 82))
             .addGroup(layout.createSequentialGroup()
                 .addGap(99, 99, 99)
@@ -222,13 +261,14 @@ public class GestionarMobiliario extends javax.swing.JFrame {
                 .addComponent(jButtonBaja, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(56, 56, 56))
             .addGroup(layout.createSequentialGroup()
-                .addGap(220, 220, 220)
-                .addComponent(jButtonGenerarMobiliario)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(220, 220, 220)
+                        .addComponent(jButtonGenerarMobiliario))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(282, 282, 282)
+                        .addComponent(jButtonSalir)))
                 .addContainerGap(248, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonSalir)
-                .addGap(272, 272, 272))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -257,7 +297,7 @@ public class GestionarMobiliario extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel12)
-                            .addComponent(jSpinneMesaB, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jSpinnerMesaB, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonBaja, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -270,9 +310,9 @@ public class GestionarMobiliario extends javax.swing.JFrame {
                             .addComponent(jSpinnerMesaA, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jButtonAgregar)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addComponent(jButtonSalir)
-                .addGap(34, 34, 34))
+                .addGap(27, 27, 27))
         );
 
         pack();
@@ -289,11 +329,13 @@ public class GestionarMobiliario extends javax.swing.JFrame {
                 noSillas = resultado.getInt("mobilario_cantidad_sillas");
                 noMesas = resultado.getInt("mobilario_cantidad_mesas");
 
-                String sillas = noSillas + " ";
+                String sillas = noSillas + "";
                 String mesas = noMesas + "";
 
                 jTextsillas.setText(sillas);
                 jTextmesas.setText(mesas);
+
+                JOptionPane.showMessageDialog(null, "Mobilario actualizado", null, JOptionPane.INFORMATION_MESSAGE);
 
             } else {
                 JOptionPane.showMessageDialog(null, "No hay mobiliario registrado", null, JOptionPane.ERROR_MESSAGE);
@@ -308,16 +350,6 @@ public class GestionarMobiliario extends javax.swing.JFrame {
     private void jButtonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarActionPerformed
         // TODO add your handling code here:
 
-       
-// Constructor pasadole una semilla
-Random numAleatorio = new Random(100);
-
-// Numero entero entre 25 y 75
-int n = numAleatorio.nextInt(900-100+1) + 100;
-        String id= n+ "";
-        
-        char T='1';
-
         int mesas = 0;
         mesas = (int) jSpinnerMesaA.getValue();
 
@@ -326,63 +358,161 @@ int n = numAleatorio.nextInt(900-100+1) + 100;
 
         if (sillas != 0 || mesas != 0) {
 
-            if (sillas ==0) {
-                     boolean sentencia;
-            sentencia = baseDatos.ejecutar("Insert into MOBILARIO_TABLA values(' " + id + " ', ' Null ', ' " + mesas + " ', '1', '1') ");
+            if (sillas == 0) {
 
-            if (sentencia == true) {
-                JOptionPane.showMessageDialog(null, "Se registro correctamente");
+                String jTextMesas = jTextmesas.getText();
+                int mesasTal = Integer.parseInt(jTextMesas) + mesas;
+
+                boolean sentencia;
+                sentencia = baseDatos.ejecutar("UPDATE mobilario_tabla SET mobilario_cantidad_mesas = '" + mesasTal + "' WHERE folio_mobilario = 001");
+
+                if (sentencia == true) {
+                    JOptionPane.showMessageDialog(null, "Se registro correctamente");
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se pudo registrar ");
+                }
+            } else if (mesas == 0) {
+
+                String jTextSillas = jTextsillas.getText();
+                int sillasTal = Integer.parseInt(jTextSillas) + sillas;
+
+                boolean sentencia;
+                sentencia = baseDatos.ejecutar("UPDATE mobilario_tabla SET mobilario_cantidad_sillas = '" + sillasTal + "' WHERE folio_mobilario = 001");
+
+                if (sentencia == true) {
+                    JOptionPane.showMessageDialog(null, "Se registro correctamente");
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se pudo registrar ");
+                }
 
             } else {
-                JOptionPane.showMessageDialog(null, "No se pudo registrar ");
-                      } 
-            }else if (mesas==0){
-                
-                     boolean sentencia;
-            sentencia = baseDatos.ejecutar("Insert into MOBILARIO_TABLA values(' " + id + " ', ' " + sillas + " ', ' Null ', '1', '1') ");
 
-            if (sentencia == true) {
-                JOptionPane.showMessageDialog(null, "Se registro correctamente");
+                String jTextMesas = jTextmesas.getText();
+                int mesasTal = Integer.parseInt(jTextMesas) + mesas;
 
-            } else {
-                JOptionPane.showMessageDialog(null, "No se pudo registrar ");
+                String jTextSillas = jTextsillas.getText();
+                int sillasTal = Integer.parseInt(jTextSillas) + sillas;
+
+                boolean sentencia;
+                sentencia = baseDatos.ejecutar("UPDATE mobilario_tabla SET mobilario_cantidad_mesas = '" + mesasTal + "' , mobilario_cantidad_sillas = '" + sillasTal + "'  WHERE folio_mobilario = 001");
+
+                if (sentencia == true) {
+                    JOptionPane.showMessageDialog(null, "Se registro correctamente");
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se pudo registrar ");
+
+                }
             }
 
-    }else{
-                
-            
-            
-                 boolean sentencia;
-            sentencia = baseDatos.ejecutar("Insert into MOBILARIO_TABLA values(' " + id + " ', ' " + sillas + " ', ' " + mesas + " ', '1', '1') ");
-
-            if (sentencia == true) {
-                JOptionPane.showMessageDialog(null, "Se registro correctamente");
-
-            } else {
-                JOptionPane.showMessageDialog(null, "No se pudo registrar ");
-
-            }
-    } 
-            
-            
-            
-        
-
-
-    }//GEN-LAST:event_jButtonAgregarActionPerformed
- else {
+        } else {
 
             JOptionPane.showMessageDialog(null, "Ingresa la cantidad de sillas o mesas a registrar");
         }
-    }
-        
-    private void jTextsillasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextsillasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextsillasActionPerformed
 
-    private void jTextmesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextmesasActionPerformed
+        jSpinnerMesaA.setValue(0);
+        jSpinnerSillaA.setValue(0);
+
+    }//GEN-LAST:event_jButtonAgregarActionPerformed
+
+    private void jButtonBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBajaActionPerformed
+        // TODO add your handling code here:
+        int mesas = 0;
+        mesas = (int) jSpinnerMesaB.getValue();
+
+        int sillas = 0;
+        sillas = (int) jSpinnerSillaB.getValue();
+
+        if (sillas != 0 || mesas != 0) {
+
+            if (sillas == 0) {
+
+                String jTextMesas = jTextmesas.getText();
+                int mesasTal = Integer.parseInt(jTextMesas) - mesas;
+
+                if (mesasTal < 0) {
+                      JOptionPane.showMessageDialog(null, "No se pueden borar  " + mesas+ " mesas  " + "existen " + jTextMesas + " mesas" );
+                }else{
+                    
+                
+
+                boolean sentencia;
+                sentencia = baseDatos.ejecutar("UPDATE mobilario_tabla SET mobilario_cantidad_mesas = '" + mesasTal + "' WHERE folio_mobilario = 001");
+
+                if (sentencia == true) {
+                    JOptionPane.showMessageDialog(null, "Se borro correctamente");
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se pudo borrar");
+                }
+            }
+            } else if (mesas == 0) {
+
+                String jTextSillas = jTextsillas.getText();
+                int sillasTal = Integer.parseInt(jTextSillas) - sillas;
+                
+                if (sillasTal < 0) {
+                      JOptionPane.showMessageDialog(null, "No se pueden borar " + sillas+ " sillas, " + "existen " + jTextSillas + "sillas" );
+                }else{
+
+                boolean sentencia;
+                sentencia = baseDatos.ejecutar("UPDATE mobilario_tabla SET mobilario_cantidad_sillas = '" + sillasTal + "' WHERE folio_mobilario = 001");
+
+                if (sentencia == true) {
+                    JOptionPane.showMessageDialog(null, "Se borro correctamente");
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se pudo borrar ");
+                }
+                }
+            } else {
+
+                String jTextMesas = jTextmesas.getText();
+                int mesasTal = Integer.parseInt(jTextMesas) - mesas;
+
+                String jTextSillas = jTextsillas.getText();
+                int sillasTal = Integer.parseInt(jTextSillas) - sillas;
+                
+                if (mesasTal < 0 || sillasTal < 0) {
+                     JOptionPane.showMessageDialog(null, "No se pudo borrar; verifica la cantidad a borrar ");
+                }else{
+                    
+                
+
+                boolean sentencia;
+                sentencia = baseDatos.ejecutar("UPDATE mobilario_tabla SET mobilario_cantidad_mesas = '" + mesasTal + "' , mobilario_cantidad_sillas = '" + sillasTal + "'  WHERE folio_mobilario = 001");
+
+                if (sentencia == true) {
+                    JOptionPane.showMessageDialog(null, "Se borro correctamente");
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se pudo borrar ");
+
+                }
+            }
+            }
+
+        } else {
+
+            JOptionPane.showMessageDialog(null, "Ingresa la cantidad de sillas o mesas a borrar");
+        }
+
+        jSpinnerMesaB.setValue(0);
+        jSpinnerSillaB.setValue(0);
+
+
+    }//GEN-LAST:event_jButtonBajaActionPerformed
+
+    private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
          // TODO add your handling code here:
-    }//GEN-LAST:event_jTextmesasActionPerformed
+         
+         
+        MenuPrincipal gest= new MenuPrincipal();
+        gest.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButtonSalirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -437,8 +567,8 @@ int n = numAleatorio.nextInt(900-100+1) + 100;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JSpinner jSpinneMesaB;
     private javax.swing.JSpinner jSpinnerMesaA;
+    private javax.swing.JSpinner jSpinnerMesaB;
     private javax.swing.JSpinner jSpinnerSillaA;
     private javax.swing.JSpinner jSpinnerSillaB;
     private javax.swing.JTextField jTextmesas;

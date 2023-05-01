@@ -70,7 +70,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 255));
+        jPanel1.setBackground(new java.awt.Color(0, 0, 204));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(204, 204, 255));
@@ -149,7 +149,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_Btn_entradasActionPerformed
 
     private void Btn_gestionarMobiliarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_gestionarMobiliarioActionPerformed
-        // TODO add your handling code here:
+         // TODO add your handling code here:
+         
+         
+        GestionarMobiliario gest= new GestionarMobiliario();
+        gest.setVisible(true);
+        this.dispose();
+         
     }//GEN-LAST:event_Btn_gestionarMobiliarioActionPerformed
 
     private void Btn_reportesVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_reportesVentaActionPerformed
