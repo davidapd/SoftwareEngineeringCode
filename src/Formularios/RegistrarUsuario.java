@@ -143,6 +143,9 @@ public class RegistrarUsuario extends javax.swing.JFrame {
             }
         });
 
+        jDate.setMaxSelectableDate(new java.util.Date(1672556500000L));
+        jDate.setMinSelectableDate(new java.util.Date(94719700000L));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(

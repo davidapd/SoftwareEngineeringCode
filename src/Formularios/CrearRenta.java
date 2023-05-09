@@ -252,6 +252,9 @@ public class CrearRenta extends javax.swing.JFrame {
             }
         });
 
+        jDate.setMaxSelectableDate(new java.util.Date(1735714903000L));
+        jDate.setMinSelectableDate(new java.util.Date(1672556503000L));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
