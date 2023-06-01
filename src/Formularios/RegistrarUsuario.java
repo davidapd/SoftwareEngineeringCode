@@ -72,7 +72,7 @@ public class RegistrarUsuario extends javax.swing.JFrame {
         jLabel6.setText("Apellido Materno");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel5.setText("Apeliido Paterno");
+        jLabel5.setText("Apellido Paterno");
 
         jTextApellidoP.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {

@@ -211,10 +211,6 @@ public class GestionarMobiliario extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(282, 282, 282)
-                .addComponent(jButtonSalir)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(25, 25, 25)
@@ -248,17 +244,14 @@ public class GestionarMobiliario extends javax.swing.JFrame {
                         .addGap(34, 34, 34)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel12)
-                                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING))
-                                        .addGap(79, 79, 79)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jSpinnerMesaB)
-                                            .addComponent(jSpinnerSillaB, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(jLabel8))
-                                .addGap(16, 16, 16))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel12)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addGap(79, 79, 79)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jSpinnerMesaB)
+                                    .addComponent(jSpinnerSillaB, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel8)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(117, 117, 117)
                                 .addComponent(jButtonBaja, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -270,6 +263,10 @@ public class GestionarMobiliario extends javax.swing.JFrame {
                                 .addGap(40, 40, 40)
                                 .addComponent(jTextmesas, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(113, 113, 113))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(284, 284, 284)
+                .addComponent(jButtonSalir)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -316,9 +313,9 @@ public class GestionarMobiliario extends javax.swing.JFrame {
                                     .addComponent(jSpinnerMesaA, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addComponent(jButtonAgregar)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonSalir)
-                .addGap(27, 27, 27))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
@@ -376,7 +373,7 @@ public class GestionarMobiliario extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Se registro correctamente");
 
                 } else {
-                    JOptionPane.showMessageDialog(null, "No se pudo registrar  ");
+                    JOptionPane.showMessageDialog(null, "No se pudo registrar ");
                 }
             } else if (mesas == 0) {
 
