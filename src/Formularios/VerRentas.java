@@ -5,6 +5,14 @@
  */
 package Formularios;
 
+import BD.Conexion;
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.util.Vector;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Dape
@@ -14,8 +22,14 @@ public class VerRentas extends javax.swing.JFrame {
     /**
      * Creates new form VerRentas
      */
+    Conexion baseDatos = new Conexion().conectar();
+   
+
     public VerRentas() {
         initComponents();
+        setLocationRelativeTo(null);
+        cargartabla();
+        jTable1.changeSelection(0, 0, false, false);
     }
 
     /**
@@ -88,11 +102,22 @@ public class VerRentas extends javax.swing.JFrame {
         jLabel6.setText("Buscar Renta");
 
         jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nombre", "Id Renta", "Direccion" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nombre", "Id Renta" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
+        jTextFieldBusqueda.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jTextFieldBusqueda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldBusquedaActionPerformed(evt);
+            }
+        });
+        jTextFieldBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldBusquedaKeyTyped(evt);
             }
         });
 
@@ -106,38 +131,42 @@ public class VerRentas extends javax.swing.JFrame {
 
         jButtonEliminar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButtonEliminar.setText("Eliminar");
+        jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEliminarActionPerformed(evt);
+            }
+        });
 
         jButtonModificar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButtonModificar.setText("Modificar");
+        jButtonModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonModificarActionPerformed(evt);
+            }
+        });
 
-        jTable1.setAutoCreateColumnsFromModel(false);
-        jTable1.setAutoCreateRowSorter(true);
         jTable1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "", "Id", "Nombre", "Direccion", "Mesas", "Sillas", "Fecha", "Total"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                true, false, false, false, false, false, false, false
-            };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
             }
-        });
-        jTable1.setColumnSelectionAllowed(false);
+        ));
         jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane1.setViewportView(jTable1);
 
         jButtonSalir.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButtonSalir.setText("Salir");
+        jButtonSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -145,29 +174,27 @@ public class VerRentas extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jLabel6)
-                        .addGap(18, 18, 18)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextFieldBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31)
-                        .addComponent(ButtonBuscar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButtonEliminar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                        .addComponent(jButtonModificar))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 635, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addGap(33, 33, 33)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(38, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jLabel6)
+                .addGap(18, 18, 18)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTextFieldBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addComponent(ButtonBuscar)
+                .addGap(40, 40, 40)
+                .addComponent(jButtonEliminar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonModificar)
+                .addGap(72, 72, 72))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButtonSalir)
-                .addGap(318, 318, 318))
+                .addGap(378, 378, 378))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,15 +204,15 @@ public class VerRentas extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ButtonBuscar)
                     .addComponent(jButtonEliminar)
                     .addComponent(jButtonModificar))
                 .addGap(43, 43, 43)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jButtonSalir)
-                .addContainerGap())
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -208,7 +235,274 @@ public class VerRentas extends javax.swing.JFrame {
 
     private void ButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonBuscarActionPerformed
         // TODO add your handling code here:
+        boolean exixte = false;
+        String buscar = (String) jComboBox1.getSelectedItem();
+        
+        String hayDatos=jTextFieldBusqueda.getText();
+        
+        if (!hayDatos.isEmpty()) {
+            
+        
+        
+        
+        if (buscar.equals("Nombre")) {
+
+            String busqueda = jTextFieldBusqueda.getText();
+
+            DefaultTableModel modelo = new DefaultTableModel();
+            this.jTable1.setModel(modelo);
+            modelo.addColumn("id");
+            modelo.addColumn("Nombre");
+            modelo.addColumn("Apellido");
+            modelo.addColumn("Sillas");
+            modelo.addColumn("Mesas");
+            modelo.addColumn("Fecha");
+            modelo.addColumn("Calle");
+            modelo.addColumn("Colonia");
+            modelo.addColumn("#");
+            modelo.addColumn("Referencia");
+            ResultSet rs = baseDatos.consultar("SELECT * FROM RENTAS_TABLA  WHERE Renta_nombre_usuario= '" + busqueda + "'");
+
+            try {
+                while (rs.next()) {
+
+                    int id = rs.getInt("idRenta");
+                    String nombre = rs.getString("Renta_nombre_usuario");
+                    String apellido = rs.getString("Renta_apellido_usuario");
+                    int sillas = rs.getInt("Renta_cantidad_sillas");
+                    int mesas = rs.getInt("Renta_cantidad_mesas");
+                    Date fecha = rs.getDate("Renta_fechaEntrega");
+                    String calle = rs.getString("Renta_direccion_usuario_calle");
+                    String colonia = rs.getString("Renta_direccion_colonia");
+                    String num = rs.getString("Renta_direccion_numeroExt");
+                    String ref = rs.getString("Renta_direccion_referencias");
+
+                    Vector v = new Vector();
+
+                    v.add(id);
+                    v.add(nombre);
+                    v.add(apellido);
+                    v.add(sillas);
+                    v.add(mesas);
+                    v.add(fecha);
+                    v.add(calle);
+                    v.add(colonia);
+                    v.add(num);
+                    v.add(ref);
+                    modelo.addRow(v);
+                    exixte = true;
+                }
+                rs.close();
+                if (!exixte) {
+                    JOptionPane.showMessageDialog(null, "No se encontaron registros con el nombre");
+                    cargartabla();
+                }
+
+            } catch (Exception ex) {
+
+                JOptionPane.showMessageDialog(null, "No se encontaron registros");
+
+            }
+
+        } else {
+            
+  try {
+            int busqueda = Integer.parseInt(jTextFieldBusqueda.getText());
+
+            DefaultTableModel modelo = new DefaultTableModel();
+            this.jTable1.setModel(modelo);
+            modelo.addColumn("id");
+            modelo.addColumn("Nombre");
+            modelo.addColumn("Apellido");
+            modelo.addColumn("Sillas");
+            modelo.addColumn("Mesas");
+            modelo.addColumn("Fecha");
+            modelo.addColumn("Calle");
+            modelo.addColumn("Colonia");
+            modelo.addColumn("#");
+            modelo.addColumn("Referencia");
+            ResultSet rs = baseDatos.consultar("SELECT * FROM RENTAS_TABLA  WHERE idRenta= '" + busqueda + "'");
+
+          
+                while (rs.next()) {
+
+                    int id = rs.getInt("idRenta");
+                    String nombre = rs.getString("Renta_nombre_usuario");
+                    String apellido = rs.getString("Renta_apellido_usuario");
+                    int sillas = rs.getInt("Renta_cantidad_sillas");
+                    int mesas = rs.getInt("Renta_cantidad_mesas");
+                    Date fecha = rs.getDate("Renta_fechaEntrega");
+                    String calle = rs.getString("Renta_direccion_usuario_calle");
+                    String colonia = rs.getString("Renta_direccion_colonia");
+                    String num = rs.getString("Renta_direccion_numeroExt");
+                    String ref = rs.getString("Renta_direccion_referencias");
+
+                    Vector v = new Vector();
+
+                    v.add(id);
+                    v.add(nombre);
+                    v.add(apellido);
+                    v.add(sillas);
+                    v.add(mesas);
+                    v.add(fecha);
+                    v.add(calle);
+                    v.add(colonia);
+                    v.add(num);
+                    v.add(ref);
+                    modelo.addRow(v);
+                    exixte = true;
+                }
+                rs.close();
+                if (!exixte) {
+                    JOptionPane.showMessageDialog(null, "No se encontaron registros con el id");
+                    cargartabla();
+                }
+
+            } catch (Exception ex) {
+
+                JOptionPane.showMessageDialog(null, "No se encontaron registros con el id");
+
+            }
+
+        }
+
+        }else{
+             JOptionPane.showMessageDialog(null, "Ingresa un nombre o un id");
+        }
     }//GEN-LAST:event_ButtonBuscarActionPerformed
+
+    private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
+        // TODO add your handling code here:
+
+        GestionarRentas menuP = new GestionarRentas();
+        menuP.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButtonSalirActionPerformed
+
+     public static int id = 0;
+    
+    private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
+        // TODO add your handling code here:
+        
+        int fila = jTable1.getSelectedRow();
+        int dato = (int) jTable1.getValueAt(fila, 0);
+        id = dato;
+
+        ModificarRenta menuP = new ModificarRenta();
+        menuP.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButtonModificarActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+
+
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
+        // TODO add your handling code here:
+
+        int fila = jTable1.getSelectedRow();
+        int dato = (int) jTable1.getValueAt(fila, 0);
+
+        int confirmar = JOptionPane.showConfirmDialog(null, "Desea borrar la renta?");
+        if (confirmar == 0) {
+
+            boolean sentencia;
+            sentencia = baseDatos.ejecutar("DELETE FROM RENTAS_TABLA WHERE idRenta =  " + dato + " ");
+
+            if (sentencia == true) {
+
+                JOptionPane.showMessageDialog(null, "Se elimino correctamente");
+
+                cargartabla();
+            } else {
+
+                JOptionPane.showMessageDialog(null, "No se pudo eliminar");
+            }
+        }
+
+
+    }//GEN-LAST:event_jButtonEliminarActionPerformed
+
+    private void jTextFieldBusquedaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaKeyTyped
+        // TODO add your handling code here:
+
+        int key = evt.getKeyChar();
+
+        /* boolean numeros = key >= 48 && key <= 57;
+
+        if (numeros) {
+            evt.consume();
+        }*/
+        if (jTextFieldBusqueda.getText().trim().length() == 9) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTextFieldBusquedaKeyTyped
+
+    public void cargartabla() {
+
+        DefaultTableModel modelo = new DefaultTableModel();
+        this.jTable1.setModel(modelo);
+        ResultSet rs = baseDatos.consultar("SELECT * FROM RENTAS_TABLA");
+
+        try {
+            //Obteniendo la informacion de las columnas que estan siendo consultadas
+            ResultSetMetaData rsMd = rs.getMetaData();
+            //La cantidad de columnas que tiene la consulta
+            int cantidadColumnas = rsMd.getColumnCount();
+            //Establecer como cabezeras el nombre de las colimnas
+            /*  for (int i = 1; i <= cantidadColumnas; i++) {
+             modelo.addColumn(rsMd.getColumnLabel(i));
+            }*/
+            modelo.addColumn("id");
+            modelo.addColumn("Nombre");
+            modelo.addColumn("Apellido");
+            modelo.addColumn("Sillas");
+            modelo.addColumn("Mesas");
+            modelo.addColumn("Fecha");
+            modelo.addColumn("Calle");
+            modelo.addColumn("Colonia");
+            modelo.addColumn("#");
+            modelo.addColumn("Referencia");
+
+            //Creando las filas para el JTable
+            while (rs.next()) {
+
+                int id = rs.getInt("idRenta");
+                String nombre = rs.getString("Renta_nombre_usuario");
+                String apellido = rs.getString("Renta_apellido_usuario");
+                int sillas = rs.getInt("Renta_cantidad_sillas");
+                int mesas = rs.getInt("Renta_cantidad_mesas");
+                Date fecha = rs.getDate("Renta_fechaEntrega");
+                String calle = rs.getString("Renta_direccion_usuario_calle");
+                String colonia = rs.getString("Renta_direccion_colonia");
+                String num = rs.getString("Renta_direccion_numeroExt");
+                String ref = rs.getString("Renta_direccion_referencias");
+
+                Vector v = new Vector();
+
+                v.add(id);
+                v.add(nombre);
+                v.add(apellido);
+                v.add(sillas);
+                v.add(mesas);
+                v.add(fecha);
+                v.add(calle);
+                v.add(colonia);
+                v.add(num);
+                v.add(ref);
+                modelo.addRow(v);
+
+            }
+            rs.close();
+
+        } catch (Exception ex) {
+
+            System.out.println("no hay rentas para mostar");
+            ex.printStackTrace();
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -244,6 +538,7 @@ public class VerRentas extends javax.swing.JFrame {
             }
         });
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton ButtonBuscar;

@@ -144,14 +144,19 @@ public class Entradas extends javax.swing.JFrame {
 
     private void BtnRegistrarEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRegistrarEActionPerformed
         // TODO add your handling code here:
+        RegistrarEntrada gest= new  RegistrarEntrada();
+        gest.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_BtnRegistrarEActionPerformed
 
     private void BtnModificarEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnModificarEActionPerformed
         // TODO add your handling code here:
-
-        CrearRenta crearRenta = new CrearRenta ();
-        crearRenta.setVisible(true);
+        
+          ModificarEntrada gest= new  ModificarEntrada();
+        gest.setVisible(true);
         this.dispose();
+
+        
     }//GEN-LAST:event_BtnModificarEActionPerformed
 
     private void BtnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRegresarActionPerformed

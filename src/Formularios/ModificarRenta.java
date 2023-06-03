@@ -1,6 +1,8 @@
 package Formularios;
 
 import BD.Conexion;
+import java.sql.Date;
+import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 
@@ -18,11 +20,13 @@ public class ModificarRenta extends javax.swing.JFrame {
     /**
      * Creates new form Crear_Renta
      */
+    VerRentas r = new VerRentas();
+     Conexion baseDatos = new Conexion().conectar();
     public ModificarRenta() {
         initComponents();
-
+        SetDatos();
     }
-    Conexion baseDatos = new Conexion().conectar();
+   
     
 
     /**
@@ -237,7 +241,7 @@ public class ModificarRenta extends javax.swing.JFrame {
         });
 
         jButtonRegistrarRenta.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButtonRegistrarRenta.setText("Registrar Renta");
+        jButtonRegistrarRenta.setText("Modificar Renta");
         jButtonRegistrarRenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonRegistrarRentaActionPerformed(evt);
@@ -309,23 +313,22 @@ public class ModificarRenta extends javax.swing.JFrame {
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jLabel17)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(89, 89, 89)
-                                        .addComponent(jButtonRegistrarRenta)))
-                                .addGap(33, 33, 33)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButtonSalir)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel16)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jSpinnerSillas, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE))))
+                                        .addComponent(jTextTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(175, 175, 175)
+                                .addComponent(jLabel16)
+                                .addGap(18, 18, 18)
+                                .addComponent(jSpinnerSillas, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel12)
-                                    .addComponent(jLabel14)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGap(286, 286, 286)
-                                        .addComponent(jLabel15)))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jButtonRegistrarRenta)
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel12)
+                                        .addComponent(jLabel14)
+                                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                            .addGap(286, 286, 286)
+                                            .addComponent(jLabel15))))
+                                .addGap(41, 41, 41)
+                                .addComponent(jButtonSalir)
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(21, 21, 21))))
         );
@@ -388,13 +391,13 @@ public class ModificarRenta extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel17)
                             .addComponent(jTextTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(109, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButtonRegistrarRenta)
-                            .addComponent(jButtonSalir))
-                        .addGap(37, 37, 37))))
+                            .addComponent(jButtonSalir)
+                            .addComponent(jButtonRegistrarRenta))
+                        .addGap(92, 92, 92))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -441,16 +444,16 @@ public class ModificarRenta extends javax.swing.JFrame {
         String caracteristica;
         caracteristica = jTextCaracteristica.getText();
 
-         String numEx;
-         numEx = jTextNumExt.getText();
-         
-         String codigoP;
-         codigoP = jTextCodigoP.getText();
-         
-        String fechaEntrega="";
-           SimpleDateFormat Formato = new SimpleDateFormat("dd/MM/yy");   
-         if (jDate.getDate() !=null) {
-             fechaEntrega= Formato.format(jDate.getDate());
+        String numEx;
+        numEx = jTextNumExt.getText();
+
+        String codigoP;
+        codigoP = jTextCodigoP.getText();
+
+        String fechaEntrega = "";
+        SimpleDateFormat Formato = new SimpleDateFormat("dd/MM/yy");
+        if (jDate.getDate() != null) {
+            fechaEntrega = Formato.format(jDate.getDate());
         }
 
         int mesas = 0;
@@ -458,6 +461,9 @@ public class ModificarRenta extends javax.swing.JFrame {
 
         int sillas = 0;
         sillas = (int) jSpinnerSillas.getValue();
+        
+        String total=jTextTotal.getText();
+         int idR = r.id;
 
         if (nombre.isEmpty() || apellidoP.isEmpty() || calle.isEmpty() || colonia.isEmpty() || fechaEntrega.isEmpty() || jTextNumExt.getText().isEmpty() || jTextCodigoP.getText().isEmpty()) {
 
@@ -466,23 +472,35 @@ public class ModificarRenta extends javax.swing.JFrame {
 
             if (mesas > 0 || sillas > 0) {
 
-              /*  boolean sentencia;
-                sentencia = baseDatos.ejecutar("Insert into RENTAS_TABLA values('" + nombre + "','"  + apellidoM + "', '" + apellidoP + "', '" + calle + "', '" + colonia + "', '" + referencia + "','" + caracteristica + "', '" + numEx + "', '" + codigoP + "', '" + fechaEntrega + "', '" + referencia + "'               )");
-               */
+                
                 if (jTextTotal.getText().isEmpty()) {
-                     JOptionPane.showMessageDialog(null, "No se genero el total; por favor de clic en el campo 'total' para generar costo");
-                }else{
+                    JOptionPane.showMessageDialog(null, "No se genero el total; por favor de clic en el campo 'total' para generar costo");
+                } else {
+
                     
                     
-                    
-                     JOptionPane.showMessageDialog(null, "Renta registrada");
-                     MenuPrincipal menuP = new MenuPrincipal();
+                     boolean sentencia;
+               sentencia = baseDatos.ejecutar("update RENTAS_TABLA set Renta_nombre_usuario = '"+nombre+"' , Renta_apellido_usuario ='"+apellidoP+"',Renta_direccion_usuario_calle ='"+calle+"',"
+                       + "  Renta_cantidad_sillas ="+sillas+",Renta_cantidad_mesas ="+mesas+",Renta_precioTotal ='"+total+"',Renta_fechaEntrega ='"+fechaEntrega+"',Renta_direccion_colonia ='"+colonia+"', "
+                               + "   Renta_direccion_numeroExt ='"+numEx+"',Renta_direccion_codigoPostal='"+codigoP+"',Renta_direccion_referencias='"+referencia+"' "
+                                       + " where idRenta="+idR+" ");
+
+                    if (sentencia == true) {
+                        JOptionPane.showMessageDialog(null, "Renta Actualizada");
+
+                     VerRentas menuP = new VerRentas();
                     menuP.setVisible(true);
                     this.dispose();
-                     
+                    }else{
+                        
+                        JOptionPane.showMessageDialog(null,"No se pudo actualizar la renta ");
+                    }
+                    
+                    
+                  
+
                 }
-             
-              
+
             } else {
 
                 JOptionPane.showMessageDialog(null, "Ingresa cantidad de sillas y/o mesas ");
@@ -503,7 +521,7 @@ public class ModificarRenta extends javax.swing.JFrame {
 
     private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
 
-        GestionarRentas gest = new GestionarRentas();
+        VerRentas gest = new VerRentas();
         gest.setVisible(true);
         this.dispose();
 
@@ -512,163 +530,210 @@ public class ModificarRenta extends javax.swing.JFrame {
 
     private void jTextTotalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextTotalMouseClicked
         // TODO add your handling code here:
-           int mesas = 0;
+        int mesas = 0;
         mesas = (int) jSpinnermesas.getValue();
 
         int sillas = 0;
         sillas = (int) jSpinnerSillas.getValue();
-           int total = (mesas * 25) + (sillas * 8);
-              
-              String totalT= total +" ";
-              
-              if (total==0) {
-             jTextTotal.setText(null);
-        }else{
-                   jTextTotal.setText(totalT);
-              }
-              
-             
+        int total = (mesas * 25) + (sillas * 8);
+
+        String totalT = total + " ";
+
+        if (total == 0) {
+            jTextTotal.setText(null);
+        } else {
+            jTextTotal.setText(totalT);
+        }
+
+
     }//GEN-LAST:event_jTextTotalMouseClicked
 
     private void jTextNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextNombreKeyTyped
         // TODO add your handling code here:
-        
-          int key = evt.getKeyChar();
 
-    boolean numeros = key >= 48 && key <= 57;
-        
-    if (numeros)
-    {
-        evt.consume();
-    }
+        int key = evt.getKeyChar();
 
-    if (jTextNombre.getText().trim().length() == 20) {
-        evt.consume();
-    }
+        boolean numeros = key >= 48 && key <= 57;
+
+        if (numeros) {
+            evt.consume();
+        }
+
+        if (jTextNombre.getText().trim().length() == 20) {
+            evt.consume();
+        }
     }//GEN-LAST:event_jTextNombreKeyTyped
 
     private void jTextApellidoPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextApellidoPKeyTyped
-            // TODO add your handling code here:
-            
-              int key = evt.getKeyChar();
+        // TODO add your handling code here:
 
-    boolean numeros = key >= 48 && key <= 57;
-        
-    if (numeros)
-    {
-        evt.consume();
-    }
+        int key = evt.getKeyChar();
 
-    if (jTextApellidoP.getText().trim().length() == 16) {
-        evt.consume();
-    }
+        boolean numeros = key >= 48 && key <= 57;
+
+        if (numeros) {
+            evt.consume();
+        }
+
+        if (jTextApellidoP.getText().trim().length() == 16) {
+            evt.consume();
+        }
 
     }//GEN-LAST:event_jTextApellidoPKeyTyped
 
     private void jTextApellidoMKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextApellidoMKeyTyped
         // TODO add your handling code here:
-          int key = evt.getKeyChar();
+        int key = evt.getKeyChar();
 
-    boolean numeros = key >= 48 && key <= 57;
-        
-    if (numeros)
-    {
-        evt.consume();
-    }
+        boolean numeros = key >= 48 && key <= 57;
 
-    if (jTextApellidoM.getText().trim().length() == 16) {
-        evt.consume();
-    }
-        
+        if (numeros) {
+            evt.consume();
+        }
+
+        if (jTextApellidoM.getText().trim().length() == 16) {
+            evt.consume();
+        }
+
     }//GEN-LAST:event_jTextApellidoMKeyTyped
 
     private void jTextCalleKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextCalleKeyTyped
         // TODO add your handling code here:
-        
-  
 
-    if (jTextCalle.getText().trim().length() == 15) {
-        evt.consume();
-    }
+        if (jTextCalle.getText().trim().length() == 15) {
+            evt.consume();
+        }
     }//GEN-LAST:event_jTextCalleKeyTyped
 
     private void jTextNumExtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextNumExtKeyTyped
         // TODO add your handling code here:
-        
-          int key = evt.getKeyChar();
 
-    boolean numeros = key >= 48 && key <= 57;
-        
-    if (!numeros)
-    {
-        evt.consume();
-    }
+        int key = evt.getKeyChar();
 
-    if (jTextNumExt.getText().trim().length() == 4) {
-        evt.consume();
-    }
+        boolean numeros = key >= 48 && key <= 57;
+
+        if (!numeros) {
+            evt.consume();
+        }
+
+        if (jTextNumExt.getText().trim().length() == 4) {
+            evt.consume();
+        }
     }//GEN-LAST:event_jTextNumExtKeyTyped
 
     private void jTextColoniaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextColoniaKeyTyped
         // TODO add your handling code here:
-        
- 
 
-    if (jTextColonia.getText().trim().length() == 15) {
-        evt.consume();
-    }
+        if (jTextColonia.getText().trim().length() == 15) {
+            evt.consume();
+        }
     }//GEN-LAST:event_jTextColoniaKeyTyped
 
     private void jTextCodigoPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextCodigoPKeyTyped
         // TODO add your handling code here:
-        
-          int key = evt.getKeyChar();
 
-    boolean numeros = key >= 48 && key <= 57;
-        
-    if (!numeros)
-    {
-        evt.consume();
-    }
+        int key = evt.getKeyChar();
 
-    if (jTextCodigoP.getText().trim().length() == 5) {
-        evt.consume();
-    }
+        boolean numeros = key >= 48 && key <= 57;
+
+        if (!numeros) {
+            evt.consume();
+        }
+
+        if (jTextCodigoP.getText().trim().length() == 5) {
+            evt.consume();
+        }
     }//GEN-LAST:event_jTextCodigoPKeyTyped
 
     private void jTextReferenciaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextReferenciaKeyTyped
         // TODO add your handling code here:
-        
-          int key = evt.getKeyChar();
 
-    boolean numeros = key >= 48 && key <= 57;
-        
-    if (numeros)
-    {
-        evt.consume();
-    }
+        int key = evt.getKeyChar();
 
-    if (jTextReferencia.getText().trim().length() == 30) {
-        evt.consume();
-    }
+        boolean numeros = key >= 48 && key <= 57;
+
+        if (numeros) {
+            evt.consume();
+        }
+
+        if (jTextReferencia.getText().trim().length() == 30) {
+            evt.consume();
+        }
     }//GEN-LAST:event_jTextReferenciaKeyTyped
 
     private void jTextCaracteristicaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextCaracteristicaKeyTyped
         // TODO add your handling code here:
-        
-          int key = evt.getKeyChar();
 
-    boolean numeros = key >= 48 && key <= 57;
-        
-    if (numeros)
-    {
-        evt.consume();
-    }
+        int key = evt.getKeyChar();
 
-    if (jTextCaracteristica.getText().trim().length() == 30) {
-        evt.consume();
-    }
+        boolean numeros = key >= 48 && key <= 57;
+
+        if (numeros) {
+            evt.consume();
+        }
+
+        if (jTextCaracteristica.getText().trim().length() == 30) {
+            evt.consume();
+        }
     }//GEN-LAST:event_jTextCaracteristicaKeyTyped
+
+    public void SetDatos() {
+
+        int idR = r.id;
+        System.out.println(idR);
+        ResultSet rs = baseDatos.consultar("SELECT * FROM RENTAS_TABLA  WHERE idRenta= " + idR + "");
+
+        try {
+
+            while (rs.next()) {
+                int id = rs.getInt("idRenta");
+                String nombre = rs.getString("Renta_nombre_usuario");
+                String apellido = rs.getString("Renta_apellido_usuario");
+                int sillas = rs.getInt("Renta_cantidad_sillas");
+                int mesas = rs.getInt("Renta_cantidad_mesas");
+                Date fecha = rs.getDate("Renta_fechaEntrega");
+                String calle = rs.getString("Renta_direccion_usuario_calle");
+                String colonia = rs.getString("Renta_direccion_colonia");
+                String num = rs.getString("Renta_direccion_numeroExt");
+                String ref = rs.getString("Renta_direccion_referencias");
+                String codigoP=rs.getString("Renta_direccion_codigoPostal");
+                String total = rs.getString("Renta_precioTotal");
+                
+                jTextNombre.setText(nombre);
+
+                jTextApellidoP.setText(apellido);
+
+                jTextApellidoM.setText(" ");
+
+                jTextCalle.setText(calle);
+
+                jTextColonia.setText(colonia);
+
+                jTextReferencia.setText(ref);
+
+                jTextCaracteristica.setText(" ");
+
+                jTextNumExt.setText(num);
+
+                jTextCodigoP.setText(codigoP);
+
+               
+                jDate.setDate(fecha); 
+                
+                jTextTotal.setText(total);
+                    
+                
+
+                jSpinnermesas.setValue(mesas);
+
+                jSpinnerSillas.setValue(sillas);
+            }
+
+        } catch (Exception e) {
+JOptionPane.showMessageDialog(null, " no se obtubieron los datos correctamente");
+        }
+
+    }
 
     /**
      * @param args the command line arguments

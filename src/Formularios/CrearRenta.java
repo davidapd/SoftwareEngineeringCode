@@ -2,6 +2,7 @@ package Formularios;
 
 import BD.Conexion;
 import java.text.SimpleDateFormat;
+import java.util.Random;
 import javax.swing.JOptionPane;
 
 /*
@@ -23,7 +24,6 @@ public class CrearRenta extends javax.swing.JFrame {
 
     }
     Conexion baseDatos = new Conexion().conectar();
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -208,6 +208,7 @@ public class CrearRenta extends javax.swing.JFrame {
 
         jSpinnermesas.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jSpinnermesas.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        jSpinnermesas.setToolTipText("");
         jSpinnermesas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jSpinnerSillas.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -441,16 +442,16 @@ public class CrearRenta extends javax.swing.JFrame {
         String caracteristica;
         caracteristica = jTextCaracteristica.getText();
 
-         String numEx;
-         numEx = jTextNumExt.getText();
-         
-         String codigoP;
-         codigoP = jTextCodigoP.getText();
-         
-        String fechaEntrega="";
-           SimpleDateFormat Formato = new SimpleDateFormat("dd/MM/yy");   
-         if (jDate.getDate() !=null) {
-             fechaEntrega= Formato.format(jDate.getDate());
+        String numEx;
+        numEx = jTextNumExt.getText();
+
+        String codigoP;
+        codigoP = jTextCodigoP.getText();
+
+        String fechaEntrega = "";
+        SimpleDateFormat Formato = new SimpleDateFormat("dd/MM/yy");
+        if (jDate.getDate() != null) {
+            fechaEntrega = Formato.format(jDate.getDate());
         }
 
         int mesas = 0;
@@ -459,6 +460,12 @@ public class CrearRenta extends javax.swing.JFrame {
         int sillas = 0;
         sillas = (int) jSpinnerSillas.getValue();
 
+        String total ;
+        total = jTextTotal.getText();
+
+        Random random = new Random();
+        int id = random.nextInt(9999) + 1;
+
         if (nombre.isEmpty() || apellidoP.isEmpty() || calle.isEmpty() || colonia.isEmpty() || fechaEntrega.isEmpty() || jTextNumExt.getText().isEmpty() || jTextCodigoP.getText().isEmpty()) {
 
             JOptionPane.showMessageDialog(null, "Exixten campos vacios; Nombre, Apellidos, direccion y fecha de renta son obligatorios ");
@@ -466,23 +473,26 @@ public class CrearRenta extends javax.swing.JFrame {
 
             if (mesas > 0 || sillas > 0) {
 
-              /*  boolean sentencia;
-                sentencia = baseDatos.ejecutar("Insert into RENTAS_TABLA values('" + nombre + "','"  + apellidoM + "', '" + apellidoP + "', '" + calle + "', '" + colonia + "', '" + referencia + "','" + caracteristica + "', '" + numEx + "', '" + codigoP + "', '" + fechaEntrega + "', '" + referencia + "'               )");
-               */
                 if (jTextTotal.getText().isEmpty()) {
-                     JOptionPane.showMessageDialog(null, "No se genero el total; por favor de clic en el campo 'total' para generar costo");
-                }else{
-                    
-                    
-                    
-                     JOptionPane.showMessageDialog(null, "Renta registrada");
-                     MenuPrincipal menuP = new MenuPrincipal();
-                    menuP.setVisible(true);
-                    this.dispose();
-                     
+                    JOptionPane.showMessageDialog(null, "No se genero el total; por favor de clic en el campo 'total' para generar costo");
+                } else {
+
+                    boolean sentencia;
+                    sentencia = baseDatos.ejecutar("Insert into RENTAS_TABLA values(" + id + ",'" + nombre + "','" + apellidoP + "','" + calle + "'," + sillas + "," + mesas + ", '" + total + "', " + null + ", '" + fechaEntrega + "',  '" + colonia + "',  '" + numEx + "', '" + codigoP + "', " + null + ",'" + referencia + "')");
+
+                    if (sentencia == true) {
+                        JOptionPane.showMessageDialog(null, "Renta registrada");
+
+                        GestionarRentas menuP = new GestionarRentas();
+                        menuP.setVisible(true);
+                        this.dispose();
+                    }else{
+                        
+                        JOptionPane.showMessageDialog(null,"No se pudo registrar la renta ");
+                    }
+
                 }
-             
-              
+
             } else {
 
                 JOptionPane.showMessageDialog(null, "Ingresa cantidad de sillas y/o mesas ");
@@ -512,162 +522,151 @@ public class CrearRenta extends javax.swing.JFrame {
 
     private void jTextTotalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextTotalMouseClicked
         // TODO add your handling code here:
-           int mesas = 0;
+        int mesas = 0;
         mesas = (int) jSpinnermesas.getValue();
 
         int sillas = 0;
         sillas = (int) jSpinnerSillas.getValue();
-           int total = (mesas * 25) + (sillas * 8);
-              
-              String totalT= total +" ";
-              
-              if (total==0) {
-             jTextTotal.setText(null);
-        }else{
-                   jTextTotal.setText(totalT);
-              }
-              
-             
+        int total = (mesas * 25) + (sillas * 8);
+
+        String totalT = total + "";
+
+        if (total == 0) {
+            jTextTotal.setText(null);
+        } else {
+            jTextTotal.setText(totalT);
+        }
+
+
     }//GEN-LAST:event_jTextTotalMouseClicked
 
     private void jTextNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextNombreKeyTyped
         // TODO add your handling code here:
-        
-          int key = evt.getKeyChar();
 
-    boolean numeros = key >= 48 && key <= 57;
-        
-    if (numeros)
-    {
-        evt.consume();
-    }
+        int key = evt.getKeyChar();
 
-    if (jTextNombre.getText().trim().length() == 20) {
-        evt.consume();
-    }
+        boolean numeros = key >= 48 && key <= 57;
+
+        if (numeros) {
+            evt.consume();
+        }
+
+        if (jTextNombre.getText().trim().length() == 20) {
+            evt.consume();
+        }
     }//GEN-LAST:event_jTextNombreKeyTyped
 
     private void jTextApellidoPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextApellidoPKeyTyped
-            // TODO add your handling code here:
-            
-              int key = evt.getKeyChar();
+        // TODO add your handling code here:
 
-    boolean numeros = key >= 48 && key <= 57;
-        
-    if (numeros)
-    {
-        evt.consume();
-    }
+        int key = evt.getKeyChar();
 
-    if (jTextApellidoP.getText().trim().length() == 16) {
-        evt.consume();
-    }
+        boolean numeros = key >= 48 && key <= 57;
+
+        if (numeros) {
+            evt.consume();
+        }
+
+        if (jTextApellidoP.getText().trim().length() == 16) {
+            evt.consume();
+        }
 
     }//GEN-LAST:event_jTextApellidoPKeyTyped
 
     private void jTextApellidoMKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextApellidoMKeyTyped
         // TODO add your handling code here:
-          int key = evt.getKeyChar();
+        int key = evt.getKeyChar();
 
-    boolean numeros = key >= 48 && key <= 57;
-        
-    if (numeros)
-    {
-        evt.consume();
-    }
+        boolean numeros = key >= 48 && key <= 57;
 
-    if (jTextApellidoM.getText().trim().length() == 16) {
-        evt.consume();
-    }
-        
+        if (numeros) {
+            evt.consume();
+        }
+
+        if (jTextApellidoM.getText().trim().length() == 16) {
+            evt.consume();
+        }
+
     }//GEN-LAST:event_jTextApellidoMKeyTyped
 
     private void jTextCalleKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextCalleKeyTyped
         // TODO add your handling code here:
-        
-  
 
-    if (jTextCalle.getText().trim().length() == 15) {
-        evt.consume();
-    }
+        if (jTextCalle.getText().trim().length() == 15) {
+            evt.consume();
+        }
     }//GEN-LAST:event_jTextCalleKeyTyped
 
     private void jTextNumExtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextNumExtKeyTyped
         // TODO add your handling code here:
-        
-          int key = evt.getKeyChar();
 
-    boolean numeros = key >= 48 && key <= 57;
-        
-    if (!numeros)
-    {
-        evt.consume();
-    }
+        int key = evt.getKeyChar();
 
-    if (jTextNumExt.getText().trim().length() == 4) {
-        evt.consume();
-    }
+        boolean numeros = key >= 48 && key <= 57;
+
+        if (!numeros) {
+            evt.consume();
+        }
+
+        if (jTextNumExt.getText().trim().length() == 4) {
+            evt.consume();
+        }
     }//GEN-LAST:event_jTextNumExtKeyTyped
 
     private void jTextColoniaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextColoniaKeyTyped
         // TODO add your handling code here:
-        
- 
 
-    if (jTextColonia.getText().trim().length() == 15) {
-        evt.consume();
-    }
+        if (jTextColonia.getText().trim().length() == 15) {
+            evt.consume();
+        }
     }//GEN-LAST:event_jTextColoniaKeyTyped
 
     private void jTextCodigoPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextCodigoPKeyTyped
         // TODO add your handling code here:
-        
-          int key = evt.getKeyChar();
 
-    boolean numeros = key >= 48 && key <= 57;
-        
-    if (!numeros)
-    {
-        evt.consume();
-    }
+        int key = evt.getKeyChar();
 
-    if (jTextCodigoP.getText().trim().length() == 5) {
-        evt.consume();
-    }
+        boolean numeros = key >= 48 && key <= 57;
+
+        if (!numeros) {
+            evt.consume();
+        }
+
+        if (jTextCodigoP.getText().trim().length() == 5) {
+            evt.consume();
+        }
     }//GEN-LAST:event_jTextCodigoPKeyTyped
 
     private void jTextReferenciaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextReferenciaKeyTyped
         // TODO add your handling code here:
-        
-          int key = evt.getKeyChar();
 
-    boolean numeros = key >= 48 && key <= 57;
-        
-    if (numeros)
-    {
-        evt.consume();
-    }
+        int key = evt.getKeyChar();
 
-    if (jTextReferencia.getText().trim().length() == 30) {
-        evt.consume();
-    }
+        boolean numeros = key >= 48 && key <= 57;
+
+        if (numeros) {
+            evt.consume();
+        }
+
+        if (jTextReferencia.getText().trim().length() == 30) {
+            evt.consume();
+        }
     }//GEN-LAST:event_jTextReferenciaKeyTyped
 
     private void jTextCaracteristicaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextCaracteristicaKeyTyped
         // TODO add your handling code here:
-        
-          int key = evt.getKeyChar();
 
-    boolean numeros = key >= 48 && key <= 57;
-        
-    if (numeros)
-    {
-        evt.consume();
-    }
+        int key = evt.getKeyChar();
 
-    if (jTextCaracteristica.getText().trim().length() == 30) {
-        evt.consume();
-    }
+        boolean numeros = key >= 48 && key <= 57;
+
+        if (numeros) {
+            evt.consume();
+        }
+
+        if (jTextCaracteristica.getText().trim().length() == 30) {
+            evt.consume();
+        }
     }//GEN-LAST:event_jTextCaracteristicaKeyTyped
 
     /**

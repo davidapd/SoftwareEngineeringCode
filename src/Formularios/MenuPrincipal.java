@@ -146,6 +146,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void Btn_entradasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_entradasActionPerformed
         // TODO add your handling code here:
+        
+         Entradas gest= new   Entradas();
+        gest.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_Btn_entradasActionPerformed
 
     private void Btn_gestionarMobiliarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_gestionarMobiliarioActionPerformed
@@ -160,6 +164,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void Btn_reportesVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_reportesVentaActionPerformed
         // TODO add your handling code here:
+        
+          GenerarReporte gest= new GenerarReporte();
+        gest.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_Btn_reportesVentaActionPerformed
 
     /**

@@ -5,6 +5,13 @@
  */
 package Formularios;
 
+import BD.Conexion;
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.util.Vector;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Dape
@@ -14,6 +21,8 @@ public class GenerarReporte extends javax.swing.JFrame {
     /**
      * Creates new form GenerarReporte
      */
+    Conexion baseDatos = new Conexion().conectar();
+
     public GenerarReporte() {
         initComponents();
     }
@@ -60,7 +69,7 @@ public class GenerarReporte extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 260, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 357, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addContainerGap())
         );
@@ -84,27 +93,24 @@ public class GenerarReporte extends javax.swing.JFrame {
 
         jButtonGenerarReporte.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButtonGenerarReporte.setText("Generar Reporte");
+        jButtonGenerarReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGenerarReporteActionPerformed(evt);
+            }
+        });
 
         jTable1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Id", "Sillas", "Mesas", "Total$"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
             }
-        });
+        ));
         jScrollPane1.setViewportView(jTable1);
 
         jTextFieldTotalP.setEditable(false);
@@ -115,6 +121,11 @@ public class GenerarReporte extends javax.swing.JFrame {
 
         jButtonSalir.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButtonSalir.setText("Salir");
+        jButtonSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -131,9 +142,6 @@ public class GenerarReporte extends javax.swing.JFrame {
                         .addGap(99, 99, 99)
                         .addComponent(jButtonGenerarReporte))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -143,8 +151,11 @@ public class GenerarReporte extends javax.swing.JFrame {
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(279, 279, 279)
-                        .addComponent(jButtonSalir)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jButtonSalir))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 621, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,6 +192,133 @@ public class GenerarReporte extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
+        // TODO add your handling code here:
+        MenuPrincipal menuP = new MenuPrincipal();
+        menuP.setVisible(true);
+        this.dispose();
+
+    }//GEN-LAST:event_jButtonSalirActionPerformed
+
+    private void jButtonGenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGenerarReporteActionPerformed
+        // TODO add your handling code here:
+
+        int totalP = 0;
+        int totalJ = 0;
+         String total="";
+         String total2="";
+
+        String periodo = (String) jComboBox1.getSelectedItem();
+        DefaultTableModel modelo = new DefaultTableModel();
+        this.jTable1.setModel(modelo);
+        if (periodo.equals("Periodo1")) {
+
+            modelo.addColumn("id");
+            modelo.addColumn("Nombre");
+            modelo.addColumn("Apellido");
+            modelo.addColumn("Sillas");
+            modelo.addColumn("Mesas");
+            modelo.addColumn("Fecha");
+            modelo.addColumn("Calle");
+            modelo.addColumn("Colonia");
+            modelo.addColumn("#");
+            modelo.addColumn("Total$");
+
+            ResultSet rs = baseDatos.consultar("SELECT * FROM RENTAS_TABLA");
+
+            try {
+                while (rs.next()) {
+
+                    int id = rs.getInt("idRenta");
+                    String nombre = rs.getString("Renta_nombre_usuario");
+                    String apellido = rs.getString("Renta_apellido_usuario");
+                    int sillas = rs.getInt("Renta_cantidad_sillas");
+                    int mesas = rs.getInt("Renta_cantidad_mesas");
+                    Date fecha = rs.getDate("Renta_fechaEntrega");
+                    String calle = rs.getString("Renta_direccion_usuario_calle");
+                    String colonia = rs.getString("Renta_direccion_colonia");
+                    String num = rs.getString("Renta_direccion_numeroExt");
+                     total = rs.getString("Renta_precioTotal");
+
+                    Vector v = new Vector();
+
+                    v.add(id);
+                    v.add(nombre);
+                    v.add(apellido);
+                    v.add(sillas);
+                    v.add(mesas);
+                    v.add(fecha);
+                    v.add(calle);
+                    v.add(colonia);
+                    v.add(num);
+                    v.add("$" + total);
+                    modelo.addRow(v);
+
+                     totalP=Integer.parseInt(total);
+                    totalJ=totalJ+totalP;
+                   
+                      
+                }
+
+                rs.close();
+                 total2= totalJ+"";
+                 jTextFieldTotalP.setText("$"+total2);
+
+            } catch (Exception ex) {
+
+                JOptionPane.showMessageDialog(null, "No se encontaron registros");
+
+            }
+            
+             //String totalA = rs.getString("Renta_precioTotal");
+                   
+
+        } else if (periodo.equals("Periodo 2")) {
+            JOptionPane.showMessageDialog(null, "No se encontaron registros en este periodo");
+              jTextFieldTotalP.setText(" "); 
+            modelo.removeRow(0);
+            
+
+        } else {
+            JOptionPane.showMessageDialog(null, "No se encontaron registros en este periodo");
+             jTextFieldTotalP.setText(" ");
+            modelo.removeRow(0);
+         
+        }
+
+    }
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+
+    }
+
+    private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+
+        int fila = jTable1.getSelectedRow();
+        int dato = (int) jTable1.getValueAt(fila, 0);
+
+        int confirmar = JOptionPane.showConfirmDialog(null, "Desea borrar la renta?");
+        if (confirmar == 0) {
+
+            boolean sentencia;
+            sentencia = baseDatos.ejecutar("DELETE FROM RENTAS_TABLA WHERE idRenta =  " + dato + " ");
+
+            if (sentencia == true) {
+
+                JOptionPane.showMessageDialog(null, "Se elimino correctamente");
+
+                //  cargartabla();
+            } else {
+
+                JOptionPane.showMessageDialog(null, "No se pudo eliminar");
+            }
+        }
+
+
+    }//GEN-LAST:event_jButtonGenerarReporteActionPerformed
 
     /**
      * @param args the command line arguments

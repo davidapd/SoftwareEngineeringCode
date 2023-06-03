@@ -146,6 +146,11 @@ public class GestionarRentas extends javax.swing.JFrame {
 
     private void BtnVerRentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVerRentasActionPerformed
         // TODO add your handling code here:
+        
+        
+          VerRentas gest= new VerRentas();
+        gest.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_BtnVerRentasActionPerformed
 
     private void BtnNuevaRentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnNuevaRentaActionPerformed

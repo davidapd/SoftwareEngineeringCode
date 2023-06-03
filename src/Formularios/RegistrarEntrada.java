@@ -5,6 +5,10 @@
  */
 package Formularios;
 
+import BD.Conexion;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Dape
@@ -14,8 +18,12 @@ public class RegistrarEntrada extends javax.swing.JFrame {
     /**
      * Creates new form RegistrarEntrada
      */
+    Conexion baseDatos = new Conexion().conectar();
     public RegistrarEntrada() {
+         
         initComponents();
+        ComboBox();
+       
     }
 
     /**
@@ -47,6 +55,8 @@ public class RegistrarEntrada extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 204));
 
@@ -80,7 +90,11 @@ public class RegistrarEntrada extends javax.swing.JFrame {
         );
 
         jComboBoxId.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jComboBoxId.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxIdActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText("Mesas");
@@ -91,15 +105,25 @@ public class RegistrarEntrada extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel5.setText("Sillas");
 
+        jSpinnerMesas.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100, 1));
+
+        jSpinnerSilla.setModel(new javax.swing.SpinnerNumberModel(0, 0, 1000, 1));
+
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel6.setText("Pago");
 
         jTextTotal.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jTextTotal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextTotalKeyTyped(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel7.setText("Total$");
 
         buttonGroup1.add(jCheckBoxEfe);
+        jCheckBoxEfe.setSelected(true);
         jCheckBoxEfe.setText("Efectivo");
         jCheckBoxEfe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -138,11 +162,11 @@ public class RegistrarEntrada extends javax.swing.JFrame {
                         .addGap(28, 28, 28)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jSpinnerMesas, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jSpinnerMesas))
                         .addGap(29, 29, 29)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
-                            .addComponent(jSpinnerSilla, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jSpinnerSilla, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(75, 75, 75)
                         .addComponent(jTextTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -180,8 +204,8 @@ public class RegistrarEntrada extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBoxId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSpinnerMesas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSpinnerSilla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jSpinnerMesas, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSpinnerSilla, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(27, 27, 27)
@@ -193,7 +217,7 @@ public class RegistrarEntrada extends javax.swing.JFrame {
                         .addComponent(jCheckBoxEfe)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jCheckBoxTras)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonRegistar)
@@ -229,8 +253,77 @@ public class RegistrarEntrada extends javax.swing.JFrame {
 
     private void jButtonRegistarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegistarActionPerformed
         // TODO add your handling code here:
+        
+        String total= jTextTotal.getText();
+        int sillas = (int) jSpinnerSilla.getValue();
+        int mesas = (int) jSpinnerMesas.getValue();
+        
+        if (total.isEmpty() ) {
+            JOptionPane.showMessageDialog(null, "Agregue el total");
+        }else{
+            
+            if (sillas > 0 || mesas > 0 ) {
+             JOptionPane.showMessageDialog(null, "Entrada registrada correctamente");
+         Entradas menuP = new   Entradas();
+        menuP.setVisible(true);
+        this.dispose();
+            }else{
+                 JOptionPane.showMessageDialog(null, "Agregue sillas o mesas");
+            }
+        }
+        
+      
+        
     }//GEN-LAST:event_jButtonRegistarActionPerformed
 
+    private void jComboBoxIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxIdActionPerformed
+        // TODO add your handling code here:
+        
+         
+        
+    }//GEN-LAST:event_jComboBoxIdActionPerformed
+
+    private void jTextTotalKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextTotalKeyTyped
+        // TODO add your handling code here:
+        int key = evt.getKeyChar();
+
+        boolean numeros = key >= 48 && key <= 57;
+
+        if (!numeros) {
+            evt.consume();
+        }
+
+        if (jTextTotal.getText().trim().length() == 5) {
+            evt.consume();
+        }
+        
+        
+    }//GEN-LAST:event_jTextTotalKeyTyped
+
+     public  void ComboBox (){
+           ResultSet rs = baseDatos.consultar("SELECT * FROM RENTAS_TABLA");
+        
+        try{
+            
+             while (rs.next()) {
+                 
+                 
+                  int id = rs.getInt("idRenta");
+                 
+                   jComboBoxId.addItem(id+"");
+             
+                 
+             }
+        
+          
+            
+            
+    }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "No hay rentas reistradas");
+    }
+     }   
+        
+        
     /**
      * @param args the command line arguments
      */
