@@ -1,7 +1,7 @@
 package Formularios;
 
 import BD.Conexion;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
@@ -22,6 +22,9 @@ public class ModificarRenta extends javax.swing.JFrame {
      */
     VerRentas r = new VerRentas();
      Conexion baseDatos = new Conexion().conectar();
+     int mesasIn=0;
+     int sillasIn=0;
+     String totalIn;
     public ModificarRenta() {
         initComponents();
         SetDatos();
@@ -229,6 +232,7 @@ public class ModificarRenta extends javax.swing.JFrame {
 
         jTextTotal.setEditable(false);
         jTextTotal.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextTotal.setToolTipText("");
         jTextTotal.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTextTotalMouseClicked(evt);
@@ -257,7 +261,7 @@ public class ModificarRenta extends javax.swing.JFrame {
         });
 
         jDate.setMaxSelectableDate(new java.util.Date(1735714903000L));
-        jDate.setMinSelectableDate(new java.util.Date(1672556503000L));
+        jDate.setMinSelectableDate(new Date());
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -463,6 +467,7 @@ public class ModificarRenta extends javax.swing.JFrame {
         sillas = (int) jSpinnerSillas.getValue();
         
         String total=jTextTotal.getText();
+        
          int idR = r.id;
 
         if (nombre.isEmpty() || apellidoP.isEmpty() || calle.isEmpty() || colonia.isEmpty() || fechaEntrega.isEmpty() || jTextNumExt.getText().isEmpty() || jTextCodigoP.getText().isEmpty()) {
@@ -471,10 +476,13 @@ public class ModificarRenta extends javax.swing.JFrame {
         } else {
 
             if (mesas > 0 || sillas > 0) {
-
                 
-                if (jTextTotal.getText().isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "No se genero el total; por favor de clic en el campo 'total' para generar costo");
+         boolean actualizado=true;
+                if (total.equals(totalIn)) {
+                    actualizado=false;
+                }
+                if (sillas != sillasIn && actualizado==false || mesas !=mesasIn && actualizado==false) {
+                    JOptionPane.showMessageDialog(null, "No se actualizo el total; por favor de clic en el campo 'total' para generar costo");
                 } else {
 
                     
@@ -537,7 +545,7 @@ public class ModificarRenta extends javax.swing.JFrame {
         sillas = (int) jSpinnerSillas.getValue();
         int total = (mesas * 25) + (sillas * 8);
 
-        String totalT = total + " ";
+        String totalT = total + "";
 
         if (total == 0) {
             jTextTotal.setText(null);
@@ -680,7 +688,7 @@ public class ModificarRenta extends javax.swing.JFrame {
     public void SetDatos() {
 
         int idR = r.id;
-        System.out.println(idR);
+        
         ResultSet rs = baseDatos.consultar("SELECT * FROM RENTAS_TABLA  WHERE idRenta= " + idR + "");
 
         try {
@@ -721,15 +729,19 @@ public class ModificarRenta extends javax.swing.JFrame {
                 jDate.setDate(fecha); 
                 
                 jTextTotal.setText(total);
+                totalIn= total;
                     
-                
+                 
 
                 jSpinnermesas.setValue(mesas);
+                mesasIn=mesas;
 
                 jSpinnerSillas.setValue(sillas);
+                sillasIn=sillas;
             }
 
         } catch (Exception e) {
+            System.out.println(e);
 JOptionPane.showMessageDialog(null, " no se obtubieron los datos correctamente");
         }
 

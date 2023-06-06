@@ -225,9 +225,10 @@ public class GenerarReporte extends javax.swing.JFrame {
             modelo.addColumn("#");
             modelo.addColumn("Total$");
 
-            ResultSet rs = baseDatos.consultar("SELECT * FROM RENTAS_TABLA");
+        
 
             try {
+                    ResultSet rs = baseDatos.consultar("SELECT * FROM RENTAS_TABLA");
                 while (rs.next()) {
 
                     int id = rs.getInt("idRenta");
@@ -255,18 +256,18 @@ public class GenerarReporte extends javax.swing.JFrame {
                     v.add("$" + total);
                     modelo.addRow(v);
 
-                     totalP=Integer.parseInt(total);
+                    totalP=Integer.parseInt(total);
                     totalJ=totalJ+totalP;
                    
-                      
+                        
                 }
 
                 rs.close();
                  total2= totalJ+"";
                  jTextFieldTotalP.setText("$"+total2);
-
+             
             } catch (Exception ex) {
-
+                System.out.println(ex);
                 JOptionPane.showMessageDialog(null, "No se encontaron registros");
 
             }

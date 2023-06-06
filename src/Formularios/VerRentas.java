@@ -369,10 +369,13 @@ public class VerRentas extends javax.swing.JFrame {
         }else{
              JOptionPane.showMessageDialog(null, "Ingresa un nombre o un id");
         }
+        
+        jTable1.changeSelection(0, 0, false, false);  
+        
     }//GEN-LAST:event_ButtonBuscarActionPerformed
 
     private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
-        // TODO add your handling code here:
+         // TODO add your handling code here:
 
         GestionarRentas menuP = new GestionarRentas();
         menuP.setVisible(true);
@@ -422,7 +425,7 @@ public class VerRentas extends javax.swing.JFrame {
             }
         }
 
-
+      jTable1.changeSelection(0, 0, false, false);
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void jTextFieldBusquedaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaKeyTyped

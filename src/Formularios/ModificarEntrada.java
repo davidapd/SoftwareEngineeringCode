@@ -7,6 +7,7 @@ package Formularios;
 
 import BD.Conexion;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
@@ -51,6 +52,7 @@ public class ModificarEntrada extends javax.swing.JFrame {
         jCheckBoxTras = new javax.swing.JCheckBox();
         jButtonModificar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
+        jButtonSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -88,6 +90,11 @@ public class ModificarEntrada extends javax.swing.JFrame {
         );
 
         jComboBoxId.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jComboBoxId.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxIdItemStateChanged(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText("Mesas");
@@ -140,6 +147,14 @@ public class ModificarEntrada extends javax.swing.JFrame {
             }
         });
 
+        jButtonSalir.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButtonSalir.setText("Salir");
+        jButtonSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -169,12 +184,16 @@ public class ModificarEntrada extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jCheckBoxTras)
                             .addComponent(jCheckBoxEfe)))
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(67, 67, 67)
+                        .addComponent(jButtonModificar)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonModificar)
-                .addGap(130, 130, 130))
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(60, 60, 60)
@@ -210,10 +229,12 @@ public class ModificarEntrada extends javax.swing.JFrame {
                         .addComponent(jCheckBoxEfe)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jCheckBoxTras)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addGap(18, 24, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonModificar)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButtonModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(24, 24, 24))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -283,6 +304,46 @@ public class ModificarEntrada extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jTextTotalKeyTyped
 
+    private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
+         // TODO add your handling code here:
+         
+          Entradas menuP = new   Entradas();
+        menuP.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButtonSalirActionPerformed
+
+    private void jComboBoxIdItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxIdItemStateChanged
+         // TODO add your handling code here:
+          String idS = (String) jComboBoxId.getSelectedItem();
+        int id = Integer.parseInt(idS);
+    
+            try{
+         ResultSet rs = baseDatos.consultar("SELECT * FROM RENTAS_TABLA  WHERE idRenta= " + id + " ");
+        
+    
+            
+             while (rs.next()) {
+                 
+                int sillas = rs.getInt("Renta_cantidad_sillas");
+             int mesas = rs.getInt("Renta_cantidad_mesas");
+             String total = rs.getString("Renta_precioTotal");
+             
+             jSpinnerSilla.setValue(sillas);
+             jSpinnerMesas.setValue(mesas);
+             jTextTotal.setText("$"+total);
+                
+             }
+        
+          
+            
+            
+    }catch(SQLException e){
+                System.out.println(e);
+            JOptionPane.showMessageDialog(null, "No hay datos con el id seleccionado");
+    }
+         
+    }//GEN-LAST:event_jComboBoxIdItemStateChanged
+
     
     public  void ComboBox (){
            ResultSet rs = baseDatos.consultar("SELECT * FROM RENTAS_TABLA");
@@ -346,6 +407,7 @@ public class ModificarEntrada extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButtonModificar;
+    private javax.swing.JButton jButtonSalir;
     private javax.swing.JCheckBox jCheckBoxEfe;
     private javax.swing.JCheckBox jCheckBoxTras;
     private javax.swing.JComboBox<String> jComboBoxId;

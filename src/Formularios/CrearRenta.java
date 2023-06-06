@@ -2,6 +2,7 @@ package Formularios;
 
 import BD.Conexion;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
 import javax.swing.JOptionPane;
 
@@ -254,7 +255,7 @@ public class CrearRenta extends javax.swing.JFrame {
         });
 
         jDate.setMaxSelectableDate(new java.util.Date(1735714903000L));
-        jDate.setMinSelectableDate(new java.util.Date(1672556503000L));
+        jDate.setMinSelectableDate(new Date());
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -460,7 +461,7 @@ public class CrearRenta extends javax.swing.JFrame {
         int sillas = 0;
         sillas = (int) jSpinnerSillas.getValue();
 
-        String total ;
+        String total;
         total = jTextTotal.getText();
 
         Random random = new Random();
@@ -478,7 +479,7 @@ public class CrearRenta extends javax.swing.JFrame {
                 } else {
 
                     boolean sentencia;
-                    sentencia = baseDatos.ejecutar("Insert into RENTAS_TABLA values(" + id + ",'" + nombre + "','" + apellidoP + "','" + calle + "'," + sillas + "," + mesas + ", '" + total + "', " + null + ", '" + fechaEntrega + "',  '" + colonia + "',  '" + numEx + "', '" + codigoP + "', " + null + ",'" + referencia + "')");
+                    sentencia = baseDatos.ejecutar("Insert into RENTAS_TABLA values(" + id + ",'" + nombre + "','" + apellidoP + "','" + calle + "'," + sillas + "," + mesas + ", '"+total+"', " + null + ", '" + fechaEntrega + "',  '" + colonia + "',  '" + numEx + "', '" + codigoP + "', " + null + ",'" + referencia + "')");
 
                     if (sentencia == true) {
                         JOptionPane.showMessageDialog(null, "Renta registrada");
